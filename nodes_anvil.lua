@@ -26,27 +26,30 @@ minetest.register_tool("cottages:hammer", {
         }
 })
 
-
 local cottages_anvil_formspec =
-                               "size[8,8]"..
-				"image[7,3;1,1;glooptest_tool_steelhammer.png]"..
---                                "list[current_name;sample;0,0.5;1,1;]"..
-                                "list[current_name;input;2.5,1.5;1,1;]"..
---                                "list[current_name;material;5,0;3,3;]"..
-                                "list[current_name;hammer;5,3;1,1;]"..
---					"label[0.0,0.0;Sample:]"..
---					"label[0.0,1.0;(Receipe)]"..
-					"label[2.5,1.0;"..S("Workpiece:").."]"..
---					"label[6.0,-0.5;Materials:]"..
-					"label[6.0,2.7;"..S("Optional").."]"..
-					"label[6.0,3.0;"..S("storage for").."]"..
-					"label[6.0,3.3;"..S("your hammer").."]"..
-
-					"label[0,-0.5;"..S("Anvil").."]"..
-					"label[0,3.0;"..S("Punch anvil with hammer to").."]"..
-					"label[0,3.3;"..S("repair tool in workpiece-slot.").."]"..
-                                "list[current_player;main;0,4;8,4;]";
-
+	"size[8,8]"..
+	"image[7,2.4;1,1;glooptest_tool_steelhammer.png]"..
+	-- "list[context;sample;0,0.5;1,1;]"..
+	"list[context;input;2.5,1.2;1,1;]"..
+	-- "list[context;material;5,0;3,3;]"..
+	"list[context;hammer;5,2.4;1,1;]"..
+	-- "label[0,0;Sample:]"..
+	-- "label[0.0,1;(Recipe)]"..
+	"label[2.5,0.7;"..S("Workpiece:").."]"..
+	-- "label[6,-0.5;Materials:]"..
+	"label[6,2.1;"..S("Optional").."]"..
+	"label[6,2.4;"..S("storage for").."]"..
+	"label[6,2.7;"..S("your hammer").."]"..
+	"label[0,0;"..S("Anvil").."]"..
+	"label[0,2.75;"..S("Punch anvil with hammer to").."]"..
+	"label[0,3.05;"..S("repair tool in workpiece-slot.").."]"..
+	"list[current_player;main;0,3.85;8,1;]"..
+	"list[current_player;main;0,5.08;8,3;8]"..
+	"listring[context;hammer]"..
+	"listring[current_player;main]"..
+	"listring[context;input]"..
+	"listring[current_player;main]"..
+	default.get_hotbar_bg(0,3.85)
 
 minetest.register_node("cottages:anvil", {
 	drawtype = "nodebox",

@@ -146,20 +146,21 @@ minetest.register_node("cottages:water_gen", {
 		local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 		meta:set_string("formspec",
 			"size[8,9]" ..
-			"label[3.0,0.0;Tree trunk well]"..
+			"label[3,0;Tree trunk well]"..
 			"label[1.5,0.7;Punch the well while wielding an empty bucket.]"..
-			"label[1.5,1.0;Your bucket will slowly be filled with river water.]"..
+			"label[1.5,1;Your bucket will slowly be filled with river water.]"..
 			"label[1.5,1.3;Punch again to get the bucket back when it is full.]"..
-			"label[1.0,2.9;Internal bucket storage (passive storage only):]"..
-			"item_image[0.2,0.7;1.0,1.0;bucket:bucket_empty]"..
-			"item_image[0.2,1.7;1.0,1.0;bucket:bucket_river_water]"..
+			"label[1,2.9;Internal bucket storage (passive storage only):]"..
+			"item_image[0.2,0.7;1,1;bucket:bucket_empty]"..
+			"item_image[0.2,1.7;1,1;bucket:bucket_river_water]"..
 			"label[1.5,1.9;Punch well with full water bucket in order to empty bucket.]"..
-			"button_exit[6.0,0.0;2,0.5;public;"..S("Public?").."]"..
-			"list[nodemeta:" .. spos .. ";main;1,3.3;8,1;]" ..
-			"list[current_player;main;0,4.85;8,1;]" ..
-			"list[current_player;main;0,6.08;8,3;8]" ..
-			"listring[nodemeta:" .. spos .. ";main]" ..
-			"listring[current_player;main]")
+			"button_exit[6,0;2,0.5;public;"..S("Public?").."]"..
+			"list[nodemeta:" .. spos .. ";main;1,3.3;8,1;]"..
+			"list[current_player;main;0,4.85;8,1;]"..
+			"list[current_player;main;0,6.08;8,3;8]"..
+			"listring[nodemeta:" .. spos .. ";main]"..
+			"listring[current_player;main]"..
+			default.get_hotbar_bg(0,4.85))
 		local inv = meta:get_inventory()
 		inv:set_size('main', 6)
 		meta:set_string("infotext", S("Public tree trunk well")) -- (punch with empty bucket to fill bucket)")

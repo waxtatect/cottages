@@ -74,21 +74,28 @@ else
 end
 
 
-local cottages_formspec_treshing_floor = 
-                               "size[8,8]"..
-				"image[1.5,0;1,1;"..cottages.texture_stick.."]"..
-				"image[0,1;1,1;farming_wheat.png]"..
-				"button_exit[6.8,0.0;1.5,0.5;public;"..S("Public?").."]"..
-                                "list[current_name;harvest;1,1;2,1;]"..
-                                "list[current_name;straw;5,0;2,2;]"..
-                                "list[current_name;seeds;5,2;2,2;]"..
-					"label[1,0.5;"..S("Harvested wheat:").."]"..
-					"label[4,0.0;"..S("Straw:").."]"..
-					"label[4,2.0;"..S("Seeds:").."]"..
-					"label[0,-0.5;"..S("Threshing floor").."]"..
-					"label[0,2.5;"..S("Punch threshing floor with a stick").."]"..
-					"label[0,3.0;"..S("to get straw and seeds from wheat.").."]"..
-                                "list[current_player;main;0,4;8,4;]";
+local cottages_formspec_treshing_floor =
+	"size[8,8.5]"..
+	"image[3.5,2.5;1,1;"..cottages.texture_stick.."]"..
+	"button_exit[3.5,0;1.5,0.5;public;"..S("Public?").."]"..
+	"list[context;harvest;1,1;2,1;]"..
+	"list[context;straw;6,0;2,2;]"..
+	"list[context;seeds;6,2;2,2;]"..
+	"label[1,0.5;"..S("Harvested grain:").."]"..
+	"label[5,0;"..S("Straw:").."]"..
+	"label[5,2;"..S("Seeds:").."]"..
+	"label[0,0;"..S("Threshing floor").."]"..
+	"label[0,2.5;"..S("Punch threshing floor with a stick").."]"..
+	"label[0,2.9;"..S("to get straw and seeds from grain.").."]"..
+	"list[current_player;main;0,4.35;8,1;]"..
+	"list[current_player;main;0,5.58;8,3;8]"..
+	"listring[current_player;main]"..
+	"listring[context;harvest]"..
+	"listring[current_player;main]"..
+	"listring[context;straw]"..
+	"listring[current_player;main]"..
+	"listring[context;seeds]"..
+	default.get_hotbar_bg(0,4.35)
 
 minetest.register_node("cottages:threshing_floor", {
 	drawtype = "nodebox",
@@ -115,46 +122,44 @@ minetest.register_node("cottages:threshing_floor", {
 			{-0.50, -0.5,-0.50, 0.50, -0.20, 0.50}}
 	},
 	on_construct = function(pos)
-               	local meta = minetest.get_meta(pos);
-		meta:set_string("infotext", S("Public threshing floor"));
-               	local inv = meta:get_inventory();
-               	inv:set_size("harvest", 2);
-               	inv:set_size("straw", 4);
-               	inv:set_size("seeds", 4);
-                meta:set_string("formspec", cottages_formspec_treshing_floor );
+		local meta = minetest.get_meta(pos)
+		meta:set_string("infotext", S("Public threshing floor"))
+		local inv = meta:get_inventory()
+		inv:set_size("harvest", 2)
+		inv:set_size("straw", 4)
+		inv:set_size("seeds", 4)
+		meta:set_string("formspec", cottages_formspec_treshing_floor)
 		meta:set_string("public", "public")
-       	end,
+	end,
 
 	after_place_node = function(pos, placer)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
 		meta:set_string("infotext", S("Private threshing floor (owned by @1)", meta:get_string("owner") or ""))
 		meta:set_string("formspec",
-				cottages_formspec_treshing_floor..
-				"label[2.5,-0.5;"..S("Owner: %s"):format(meta:get_string("owner") or "").."]" );
+		cottages_formspec_treshing_floor..
+		"label[1.58,0;"..S("Owner: @1", meta:get_string("owner") or "").."]")
 		meta:set_string("public", "private")
-        end,
+	end,
 
 	on_receive_fields = function(pos, formname, fields, sender)
 		cottages.switch_public(pos, formname, fields, sender, 'threshing floor')
 	end,
 
-        can_dig = function(pos,player)
+	can_dig = function(pos,player)
+		local meta  = minetest.get_meta(pos)
+		local inv   = meta:get_inventory()
+		local owner = meta:get_string('owner')
 
-                local meta  = minetest.get_meta(pos);
-                local inv   = meta:get_inventory();
-		local owner = meta:get_string('owner');
-
-                if(  not( inv:is_empty("harvest"))
-		  or not( inv:is_empty("straw"))
-		  or not( inv:is_empty("seeds"))
-		  or not( player )
-		  or ( owner and owner ~= ''  and player:get_player_name() ~= owner )) then
-
-		   return false;
+		if(not(inv:is_empty("harvest"))
+		  or not(inv:is_empty("straw"))
+		  or not(inv:is_empty("seeds"))
+		  or not(player)
+		  or (owner and owner ~= '' and player:get_player_name() ~= owner)) then
+		   return false
 		end
-                return true;
-        end,
+		return true
+	end,
 
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta = minetest.get_meta(pos)
@@ -218,8 +223,8 @@ minetest.register_node("cottages:threshing_floor", {
 			-- update the formspec
 			meta:set_string("formspec",
 				cottages_formspec_treshing_floor..
-				"label[2.5,-0.5;"..S("Owner: %s"):format(meta:get_string("owner") or "").."]" );
-			return;
+				"label[1.58,0;"..S("Owner: @1", meta:get_string("owner") or "").."]")
+			return
 		end
 
 		-- on average, process 25 wheat at each punch (10..40 are possible)
@@ -333,18 +338,23 @@ minetest.register_node("cottages:threshing_floor", {
 	end,
 })
 
-
-local cottages_handmill_formspec = "size[8,8]"..
-				"image[0,1;1,1;"..cottages.texture_wheat_seed.."]"..
-				"button_exit[6.0,0.0;1.5,0.5;public;"..S("Public?").."]"..
-                                "list[current_name;seeds;1,1;1,1;]"..
-                                "list[current_name;flour;5,1;2,2;]"..
-					"label[0,0.5;"..S("Wheat seeds:").."]"..
-					"label[4,0.5;"..S("Flour:").."]"..
-					"label[0,-0.3;"..S("Mill").."]"..
-					"label[0,2.5;"..S("Punch this hand-driven mill").."]"..
-					"label[0,3.0;"..S("to convert wheat seeds into flour.").."]"..
-                                "list[current_player;main;0,4;8,4;]";
+local cottages_formspec_handmill =
+	"size[8,8.5]"..
+	"button_exit[6,0;1.5,0.5;public;"..S("Public?").."]"..
+	"list[context;seeds;1,1.2;1,1;]"..
+	"list[context;flour;5,1.2;2,2;]"..
+	"label[0,0.7;"..S("Seeds:").."]"..
+	"label[4,0.7;"..S("Flour:").."]"..
+	"label[0,0;"..S("Mill").."]"..
+	"label[0,2.7;"..S("Punch this hand-driven mill").."]"..
+	"label[0,3.1;"..S("to convert seeds into flour.").."]"..
+	"list[current_player;main;0,4.35;8,1;]"..
+	"list[current_player;main;0,5.58;8,3;8]"..
+	"listring[context;flour]"..
+	"listring[current_player;main]"..
+	"listring[context;seeds]"..
+	"listring[current_player;main]"..
+	default.get_hotbar_bg(0,4.35)
 
 minetest.register_node("cottages:handmill", {
 	description = S("mill, powered by punching"),
@@ -380,8 +390,9 @@ minetest.register_node("cottages:handmill", {
 		meta:set_string("owner", placer:get_player_name() or "");
 		meta:set_string("infotext", S("Private mill, powered by punching (owned by %s)"):format(meta:get_string("owner") or ""));
 		meta:set_string("formspec",
-				cottages_handmill_formspec..
-				"label[2.5,-0.5;"..S("Owner: %s"):format(meta:get_string('owner') or "").."]" );
+		cottages_formspec_handmill..
+		"image[0,1.2;1,1;"..cottages.texture_handmill.."]"..
+		"label[2.5,0;"..S("Owner: @1", meta:get_string('owner') or "").."]")
 		meta:set_string("public", "private")
         end,
 
@@ -458,9 +469,9 @@ minetest.register_node("cottages:handmill", {
 			end
 			-- update the formspec
 			meta:set_string("formspec",
-				cottages_handmill_formspec..
-				"label[2.5,-0.5;"..S("Owner: %s"):format(meta:get_string('owner') or "").."]" );
-			return;
+				cottages_formspec_handmill..
+				"label[2.5,0;"..S("Owner: @1", meta:get_string('owner') or "").."]")
+			return
 		end
 
 		-- turning the mill is a slow process; 1-21 flour are generated per turn
