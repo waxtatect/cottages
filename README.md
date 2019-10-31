@@ -81,6 +81,17 @@ Bas080 (CC; see https://forum.minetest.net/viewtopic.php?t=2344)
 Derived from Universal schema.jpg by Stefanie Lindener, which can be found here: http://de.wikipedia.org/w/index.php?title=Datei:Universal_schema.jpg&filetimestamp=20060510110309& The texture is CC-by-sa 2.0/de.
    cottages_slate.png
 
+Texture taken from https://github.com/minetest-mods/anvil
+   cottages_anvil_spark.png
+
+Benboncan, CC BY 3.0 license, https://freesound.org/people/Benboncan/sounds/103631/
+   cottages_anvil_clang.ogg
+
+h-v-smacker, https://github.com/h-v-smacker/cottages
+   cottages_barrel_storage.png
+   cottages_wagonwheel.png
+   cottages_water_indicator.png
+
 Textures not provided but used (need to be supplied by a default mod):
 	default_wood.png
 	default_tree.png

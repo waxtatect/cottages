@@ -3,37 +3,47 @@ local S = cottages.S
 -- contains hay_mat, hay and hay bale
 -- (gives the pitchfork some work)
 
+
 -- If default:dirt_with_grass is digged while wielding a pitchfork, it will
 -- turn into dirt and get some hay placed above it.
 -- The hay will disappear (decay) after a couple of minutes.
-if(     minetest.registered_items["default:dirt_with_grass"]
-    and minetest.registered_tools["cottages:pitchfork"]) then
+if(minetest.registered_items["default:dirt_with_grass"]
+  and minetest.registered_tools["cottages:pitchfork"]) then
+	local old_on_dig = minetest.registered_items["default:dirt_with_grass"].on_dig
+
+	local function is_protected(pos, name)
+		return minetest.is_protected(pos, name) and
+		  not minetest.check_player_privs(name, "protection_bypass")
+	end
+
   minetest.override_item("default:dirt_with_grass", {
-	after_dig_node = function(pos, oldnode, oldmetadata, digger)
-		if( not( pos ) or not( digger )) then
-			return
+	on_dig = function(pos, node, digger)
+		local diggername = digger:get_player_name()
+		if(not(pos) or not(digger)) then
+			return old_on_dig(pos, node, digger)
 		end
 		local wielded = digger:get_wielded_item()
-		if(    not( wielded )
-		    or not( wielded:get_name() )
+		if(not(wielded)
+		    or not(wielded:get_name())
 		    or (wielded:get_name()~="cottages:pitchfork")) then
-			return
+			return old_on_dig(pos, node, digger)
 		end
 
 		local pos_above = {x=pos.x, y=pos.y+1, z=pos.z}
 		local node_above = minetest.get_node_or_nil( pos_above)
-		if( not(node_above) or not(node_above.name) or node_above.name ~= "air" ) then
-			return nil
+		if(not(node_above) or not(node_above.name) or node_above.name ~= "air") then
+			return old_on_dig(pos, node, digger)
 		end
-		minetest.swap_node( pos,       {name="default:dirt"})
-		minetest.add_node(  pos_above, {name="cottages:hay_mat", param2=math.random(2,25)}) 
+		if is_protected(pos, diggername) or is_protected(pos_above, diggername) then
+			return old_on_dig(pos, node, digger)
+		end
+		minetest.swap_node(pos, {name="default:dirt"})
+		minetest.add_node(pos_above, {name="cottages:hay_mat", param2=math.random(2,25)})
 		-- start a node timer so that the hay will decay after some time
 		local timer = minetest.get_node_timer(pos_above)
 		if not timer:is_started() then
 			timer:start(math.random(60, 300))
 		end
-		-- TODO: prevent dirt from beeing multiplied this way (that is: give no dirt!)
-		return
 	end,
   })
 end
