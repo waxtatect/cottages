@@ -578,3 +578,18 @@ minetest.register_craft({
 	output = "cottages:straw_mat 3",
 	recipe = {{"cottages:straw_bale"}}
 })
+
+-----
+-- fuel
+-----
+minetest.register_craft({
+	type = "fuel",
+	recipe = "cottages:straw",
+	burntime = 3
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "cottages:straw_bale",
+	burntime = 3
+})

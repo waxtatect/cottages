@@ -230,64 +230,86 @@ minetest.register_node("cottages:table", cottages_table_def)
 -- looks better than two slabs impersonating a shelf also more 3d than a bookshelf 
 -- the infotext shows if it's empty or not
 minetest.register_node("cottages:shelf", {
-		description = S("open storage shelf"),
-		drawtype = "nodebox",
-                -- top, bottom, side1, side2, inner, outer
-		tiles = {"cottages_minimal_wood.png"},
-		paramtype = "light",
-		paramtype2 = "facedir",
-		groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
-		node_box = {
-			type = "fixed",
-			fixed = {
+	description = S("Protected open storage shelf"),
+	drawtype = "nodebox",
+	tiles = {"cottages_minimal_wood.png"},-- top, bottom, side1, side2, inner, outer
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {snappy = 2, choppy = 2, oddly_breakable_by_hand = 2},
+	node_box = {
+		type = "fixed",
+		fixed = {
 
- 				{ -0.5, -0.5, -0.3, -0.4,  0.5,  0.5},
- 				{  0.4, -0.5, -0.3,  0.5,  0.5,  0.5},
+			{-0.5, -0.5, -0.3, -0.4,  0.5,  0.5},
+			{ 0.4, -0.5, -0.3,  0.5,  0.5,  0.5},
 
-				{ -0.5, -0.2, -0.3,  0.5, -0.1,  0.5},
-				{ -0.5,  0.3, -0.3,  0.5,  0.4,  0.5},
-			},
+			{-0.5, -0.2, -0.3,  0.5, -0.1,  0.5},
+			{-0.5,  0.3, -0.3,  0.5,  0.4,  0.5},
 		},
-		selection_box = {
-			type = "fixed",
-			fixed = {
-				{ -0.5, -0.5, -0.5,  0.5, 0.5,  0.5},
-			},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5,  0.5, 0.5,  0.5},
 		},
+	},
 
-		on_construct = function(pos)
+	on_construct = function(pos)
+		local meta = minetest.get_meta(pos)
+		local spos = pos.x .. "," .. pos.y .. "," .. pos.z
+		meta:set_string("formspec",
+			"size[8,8]"..
+			"list[nodemeta:" .. spos .. ";main;0,0.3;8,3;]"..
+			"list[current_player;main;0,3.85;8,1;]"..
+			"list[current_player;main;0,5.08;8,3;8]"..
+			"listring[nodemeta:" .. spos .. ";main]"..
+			"listring[current_player;main]"..
+			default.get_hotbar_bg(0,3.85))
+		meta:set_string("infotext", S("Protected open storage shelf"))
+		local inv = meta:get_inventory();
+		inv:set_size("main", 24);
+	end,
 
-                	local meta = minetest.get_meta(pos);
-
-	                meta:set_string("formspec",
-                                "size[8,8]"..
-                                "list[current_name;main;0,0;8,3;]"..
-                                "list[current_player;main;0,4;8,4;]")
-                	meta:set_string("infotext", S("open storage shelf"))
-                	local inv = meta:get_inventory();
-                	inv:set_size("main", 24);
-        	end,
-
-	        can_dig = function( pos,player )
-	                local  meta = minetest.get_meta( pos );
-	                local  inv = meta:get_inventory();
-	                return inv:is_empty("main");
-	        end,
-
-                on_metadata_inventory_put  = function(pos, listname, index, stack, player)
-	                local  meta = minetest.get_meta( pos );
-                        meta:set_string('infotext', S('open storage shelf (in use)'));
-                end,
-                on_metadata_inventory_take = function(pos, listname, index, stack, player)
-	                local  meta = minetest.get_meta( pos );
-	                local  inv = meta:get_inventory();
-	                if( inv:is_empty("main")) then
-                           meta:set_string('infotext', S('open storage shelf (empty)'));
-                        end
-                end,
-		is_ground_content = false,
-
-
+	can_dig = function(pos, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return false
+		end
+		local  meta = minetest.get_meta(pos);
+		local  inv = meta:get_inventory();
+		return inv:is_empty("main");
+	end,	
+	
+	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+		return count
+	end,
+	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+		return stack:get_count()
+	end,
+	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+		return stack:get_count()
+	end,
+									  
+	on_metadata_inventory_put  = function(pos, listname, index, stack, player)
+		local  meta = minetest.get_meta(pos)
+		meta:set_string('infotext', S('Protected open storage shelf (in use)'))
+	end,
+	on_metadata_inventory_take = function(pos, listname, index, stack, player)
+		local  meta = minetest.get_meta(pos)
+		local  inv = meta:get_inventory()
+		if(inv:is_empty("main")) then
+			meta:set_string('infotext', S('Protected open storage shelf (empty)'))
+		end
+	end,
+	is_ground_content = false,
 })
 
 -- so that the smoke from a furnace can get out of a building
@@ -354,6 +376,77 @@ minetest.register_node("cottages:washing", {
 	is_ground_content = false,
 })
 
+-- barrel for dry storage (think apples etc)
+minetest.register_node("cottages:storage_barrel", {
+	description = S("Protected storage barrel"),
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drawtype = "mesh",
+	mesh = "cottages_barrel_closed.obj",
+	tiles = {"cottages_barrel_storage.png"},
+	groups = {wooden = 1, snappy = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
+	drop = "cottages:storage_barrel",
+
+	on_construct = function(pos)
+		local meta = minetest.get_meta(pos);
+		local spos = pos.x .. "," .. pos.y .. "," .. pos.z;
+		meta:set_string("formspec",
+			"size[8,9]"..
+			"list[nodemeta:" .. spos .. ";main;1.5,0.3;5,4;]"..
+			"list[current_player;main;0,4.85;8,1;]"..
+			"list[current_player;main;0,6.08;8,3;8]"..
+			"listring[nodemeta:" .. spos .. ";main]"..
+			"listring[current_player;main]"..
+			default.get_hotbar_bg(0,4.85))
+		meta:set_string("infotext", S("Protected storage barrel"))
+		local inv = meta:get_inventory();
+		inv:set_size("main", 20);
+	end,
+	
+	on_place = minetest.rotate_node,
+
+	can_dig = function(pos, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return false
+		end
+		local  meta = minetest.get_meta(pos);
+		local  inv = meta:get_inventory();
+		return inv:is_empty("main");
+	end,
+
+	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+		return count
+	end,
+	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+		return stack:get_count()
+	end,
+	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+		return stack:get_count()
+	end,
+						
+	on_metadata_inventory_put  = function(pos, listname, index, stack, player)
+		local  meta = minetest.get_meta(pos);
+		meta:set_string('infotext', S('Protected storage barrel (in use)'));
+	end,
+	on_metadata_inventory_take = function(pos, listname, index, stack, player)
+		local  meta = minetest.get_meta(pos);
+		local  inv = meta:get_inventory();
+		if(inv:is_empty("main")) then
+			meta:set_string('infotext', S('Protected storage barrel (empty)'));
+		end
+	end,
+
+	is_ground_content = false
+})
 
 ---------------------------------------------------------------------------------------
 -- functions for sitting or sleeping
@@ -420,8 +513,14 @@ cottages.sleep_in_bed = function(pos, node, clicker, itemstack, pointed_thing)
 	local animation = default.player_get_animation(clicker)
 	local pname = clicker:get_player_name()
 
+	local p_above = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z})
+	if(not(p_above) or not(p_above.name) or p_above.name ~= 'air') then
+		minetest.chat_send_player(pname, S("This place is too narrow for sleeping. At least for you!"))
+		return
 	end
 
+	local place_name = S("place")
+	-- if only one node is present, the player can only sit
 	-- sleeping requires a bed head+foot or two sleeping mats
 	local allow_sleep = false
 	local new_animation = 'sit'
@@ -461,6 +560,7 @@ cottages.sleep_in_bed = function(pos, node, clicker, itemstack, pointed_thing)
 		else
 			allow_sleep = true
 		end
+		place_name = S("bed")
 
 	-- if the player clicked on the foot of the bed, locate the head
 	elseif(node.name=='cottages:bed_foot') then
@@ -484,7 +584,12 @@ cottages.sleep_in_bed = function(pos, node, clicker, itemstack, pointed_thing)
 		if(allow_sleep==true) then
 			p = {x=second_node_pos.x, y=second_node_pos.y, z=second_node_pos.z}
 		end
+		place_name = S("bed")
 
+	elseif(node.name=='cottages:sleeping_mat' or node.name=='cottages:straw_mat' or node.name=='cottages:sleeping_mat_head') then
+		place_name = S("mat")
+		dir = node.param2
+		allow_sleep = false
 		-- search for a second mat right next to this one
 		local offset = {{x=0,z=-1}, {x=-1,z=0}, {x=0,z=1}, {x=1,z=0}}
 		for i,off in ipairs(offset) do
@@ -619,4 +724,13 @@ minetest.register_craft({
 	recipe = {
 		{cottages.craftitem_steel, '', cottages.craftitem_steel},
 	}
+})
+
+minetest.register_craft({
+	output = "cottages:storage_barrel",
+	recipe = {
+		{cottages.craftitem_wood, "", cottages.craftitem_wood},
+		{cottages.craftitem_steel, cottages.craftitem_chest, cottages.craftitem_steel},
+		{cottages.craftitem_wood, cottages.craftitem_wood, cottages.craftitem_wood},
+	},
 })

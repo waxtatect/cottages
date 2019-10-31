@@ -22,7 +22,7 @@ minetest.register_node("cottages:rope", {
 				minetest.chat_send_player( player:get_player_name(),
 					'The entire rope would be too heavy. Start digging at its lowest end!')
 			end
-			return true;
+			return false
 		end
 		return true
 	end
