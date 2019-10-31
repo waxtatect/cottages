@@ -1,0 +1,16 @@
+# textdomain: cottages
+
+### nodes_anvil.lua ###
+Steel hammer for repairing tools on the anvil=Un marteau en fer pour réparer les outils avec une enclume
+Anvil=Enclume
+The workpiece slot is for damaged tools only.=Emplacement pour les outils endommagés seulement.
+Your tool has been repaired successfully.=Votre outil a été réparé avec succès.
+Your workpiece improves.=Votre pièce s'améliore.
+Anvil (owned by @1)=Enclume (détenue par @1)
+Workpiece:=Pièce
+Optional=Optionnel
+storage for=espace pour
+your hammer=votre marteau
+Owner: @1=Propriétaire: @1
+Punch anvil with hammer to=Frappez l'enclume avec un marteau pour
+repair tool in workpiece-slot.=outil de réparation dans son emplacement.

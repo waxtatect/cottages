@@ -1,4 +1,3 @@
--- Boilerplate to support localized strings if intllib mod is installed.
 local S = cottages.S
 
 ---------------------------------------------------------------------------------------
@@ -8,9 +7,8 @@ local S = cottages.S
 
 -- create the three basic roof parts plus recipes for them
 cottages.register_roof = function( name, tiles, basic_material, homedecor_alternative )
-
-   minetest.register_node("cottages:roof_"..name, {
-		description = S("Roof "..name),
+	minetest.register_node("cottages:roof_"..name, {
+		description = S("Roof @1", name),
 		drawtype = "nodebox",
 		--tiles = {cottages.textures_roof_wood,cottages.texture_roof_sides,cottages.texture_roof_sides,cottages.texture_roof_sides,cottages.texture_roof_sides,cottages.textures_roof_wood},
 		tiles = tiles,
@@ -32,10 +30,10 @@ cottages.register_roof = function( name, tiles, basic_material, homedecor_altern
 		is_ground_content = false
 	})
 
-		description = S("Roof connector "..name),
    -- a better roof than the normal stairs this one is for usage directly on top of walls (it has the form of a stair)
 	if( name~="straw" or not(minetest.registered_nodes["stairs:stair_straw"]) or not(cottages.use_farming_straw_stairs)) then
 		minetest.register_node("cottages:roof_connector_"..name, {
+			description = S("Roof connector @1", name),
 			drawtype = "nodebox",
 					-- top, bottom, side1, side2, inner, outer
 			tiles = tiles,
@@ -61,9 +59,9 @@ cottages.register_roof = function( name, tiles, basic_material, homedecor_altern
 	end
 
    -- this one is the slab version of the above roof
-		description = S("Roof (flat) "..name),
 	if( name~="straw" or not(minetest.registered_nodes["stairs:slab_straw"]) or not(cottages.use_farming_straw_stairs)) then
 		minetest.register_node("cottages:roof_flat_"..name, {
+			description = S("Roof (flat) @1", name),
 			drawtype = "nodebox",
 					-- top, bottom, side1, side2, inner, outer
 					-- this one is from all sides - except from the underside - of the given material

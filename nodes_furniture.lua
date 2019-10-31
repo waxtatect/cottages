@@ -433,7 +433,8 @@ cottages.sleep_in_bed = function(pos, node, clicker, itemstack, pointed_thing)
 		clicker:set_eye_offset({x=0,y=0,z=0}, {x=0,y=0,z=0})
 		clicker:set_physics_override(1, 1, 1)
 		default.player_set_animation(clicker, "stand", 30)
-		minetest.chat_send_player( pname, 'That was enough sleep for now. You stand up again.');
+		minetest.chat_send_player(pname, S("That was enough sleep for now. You stand up again."))
+		return
 	end
 
 	local second_node_pos = {x=pos.x, y=pos.y, z=pos.z}
@@ -518,7 +519,8 @@ cottages.sleep_in_bed = function(pos, node, clicker, itemstack, pointed_thing)
 		if(allow_sleep==true) then
 			default.player_set_animation(clicker, "lay", 30)
 			clicker:set_eye_offset({x=0,y=-14,z=2}, {x=0,y=0,z=0})
-			minetest.chat_send_player( pname, 'You lie down and take a nap. A right-click will wake you up.');
+			minetest.chat_send_player(pname, S("You lie down and take a nap. A right-click will wake you up."))
+			return
 		-- no sleeping on this place
 		else
 			default.player_attached[pname] = false
@@ -526,8 +528,8 @@ cottages.sleep_in_bed = function(pos, node, clicker, itemstack, pointed_thing)
 			clicker:set_eye_offset({x=0,y=0,z=0}, {x=0,y=0,z=0})
 			clicker:set_physics_override(1, 1, 1)
 			default.player_set_animation(clicker, "stand", 30)
-			minetest.chat_send_player( pname, 'That was enough sitting around for now. You stand up again.');
-			return;
+			minetest.chat_send_player(pname, S("That was enough sitting around for now. You stand up again."))
+			return
 		end
 	end
 
@@ -537,10 +539,10 @@ cottages.sleep_in_bed = function(pos, node, clicker, itemstack, pointed_thing)
 	clicker:set_physics_override(0, 0, 0)
 	default.player_attached[pname] = true
 
-	if( allow_sleep==true) then
-		minetest.chat_send_player( pname, 'Aaah! What a comftable '..place_name..'. A second right-click will let you sleep.');
+	if(allow_sleep==true) then
+		minetest.chat_send_player(pname, S("Aaah! What a comfortable @1. A second right-click will let you sleep.", place_name))
 	else
-		minetest.chat_send_player( pname, 'Comftable, but not good enough for a nap. Right-click again if you want to get back up.');
+		minetest.chat_send_player(pname, S("Comfortable, but not good enough for a nap. Right-click again if you want to get back up."))
 	end
 end
 

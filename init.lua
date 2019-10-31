@@ -22,13 +22,7 @@
 --          Added hand-driven mill.
 
 cottages = {}
-
--- Boilerplate to support localized strings if intllib mod is installed.
-if minetest.get_modpath( "intllib" ) and intllib then
-	cottages.S = intllib.Getter()
-else
-	cottages.S = function(s) return s end
-end
+cottages.S = minetest.get_translator("cottages")
 
 cottages.sounds = {}
 -- MineClone2 needs special treatment, default is only needed for

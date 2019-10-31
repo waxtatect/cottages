@@ -158,7 +158,7 @@ minetest.register_node("cottages:wool_tent", {
 -- a fallback for cases in which there is no wool
 if( not( minetest.registered_nodes["wool:white"])) then
 	minetest.register_node("cottages:wool", {
-		description = "Wool",
+		description = S("Wool"),
 		tiles = {"cottages_wool.png"},
 		is_ground_content = false,
 		groups = {snappy = 2, choppy = 2, oddly_breakable_by_hand = 3, flammable = 3, wool = 1}

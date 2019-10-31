@@ -167,7 +167,7 @@ minetest.register_node("cottages:water_gen", {
 	after_place_node = function(pos, placer)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
-		meta:set_string("infotext", S("Public tree trunk well (owned by %s)"):format(meta:get_string("owner")))
+		meta:set_string("infotext", S("Public tree trunk well (owned by @1)", meta:get_string("owner")))
 		-- no bucket loaded
 		meta:set_string("bucket", "")
 		meta:set_string("public", "public")
@@ -216,11 +216,11 @@ minetest.register_node("cottages:water_gen", {
 		end
 		-- only the owner can use the well
 		local name = puncher:get_player_name()
-               	local meta = minetest.get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		local owner = meta:get_string("owner")
 		local public = meta:get_string("public")
 		if( name ~= owner and public~="public") then
-			minetest.chat_send_player( name, S("This tree trunk well is owned by %s. You can't use it."):format(name))
+			minetest.chat_send_player(name, S("This tree trunk well is owned by @1. You can't use it.", name))
 			return
 		end
 

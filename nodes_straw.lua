@@ -126,9 +126,9 @@ minetest.register_node("cottages:threshing_floor", {
        	end,
 
 	after_place_node = function(pos, placer)
-		local meta = minetest.get_meta(pos);
-		meta:set_string("owner", placer:get_player_name() or "");
-		meta:set_string("infotext", S("Private threshing floor (owned by %s)"):format(meta:get_string("owner") or ""));
+		local meta = minetest.get_meta(pos)
+		meta:set_string("owner", placer:get_player_name() or "")
+		meta:set_string("infotext", S("Private threshing floor (owned by @1)", meta:get_string("owner") or ""))
 		meta:set_string("formspec",
 				cottages_formspec_treshing_floor..
 				"label[2.5,-0.5;"..S("Owner: %s"):format(meta:get_string("owner") or "").."]" );

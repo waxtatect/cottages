@@ -6,7 +6,7 @@ local S = cottages.S
 -- the rope can only be digged if there is no further rope above it
 -- Note: This rope also counts as a rail node thus, carts can move through it
 minetest.register_node("cottages:rope", {
-        description = "rope for climbing",
+	description = S("Rope for climbing"),
 	tiles = {"cottages_rope.png"},
 	groups = {snappy = 3, choppy = 3, oddly_breakable_by_hand = 3, rail = 1, connect_to_raillike = 1},--connect_to_raillike=minetest.raillike_group("rail")},
 	walkable = false,
@@ -37,7 +37,7 @@ minetest.register_craft({
 
 -- Note: This rope also counts as a rail node thus, carts can move through it
 minetest.register_node("cottages:ladder_with_rope_and_rail", {
-	description = "Ladder with rail support",
+	description = S("Ladder with rail support"),
 	drawtype = "signlike",
 	tiles = {"default_ladder_wood.png^carts_rail_straight.png^cottages_rope.png"},
 	inventory_image = "default_ladder_wood.png",

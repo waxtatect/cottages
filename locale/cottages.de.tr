@@ -1,0 +1,167 @@
+# textdomain: cottages
+
+### nodes_anvil.lua ###
+Steel hammer for repairing tools on the anvil=Stahlhammer um Werkzeuge auf dem Amboss zu reparieren
+Anvil=Amboss
+The workpiece slot is for damaged tools only.=Das Werkstueckfeld gilt nur fuer beschaedigtes Werkzeug.
+Your tool has been repaired successfully.=Dein Werkzeug wurde erfolgreich repariert.
+Your workpiece improves.=Dein Werkstueck verbessert sich.
+Anvil (owned by @1)=Amboss (gehoert @1)
+Workpiece:=Werkstueck
+Optional=Moegliche
+storage for=Aufbewahrung fuer
+your hammer=deinen Hammer
+Owner: @1=Besitzer: @1
+Punch anvil with hammer to=Schlage mit dem Hammer auf den Amboss um
+repair tool in workpiece-slot.=das Werkzeug im Werkstueckfeld zu reparieren.
+
+### nodes_barrel.lua ###
+Pour:=Eingiessen
+Fill:=Ausgiessen
+Barrel (closed)=Fass (geschlossen)
+Barrel (open)=Fass (offen)
+Barrel (closed), lying somewhere=Liegendes Fass (geschlossen)
+Barrel (opened), lying somewhere=Liegendes Fass (offen)
+Tub=Bottich
+
+### nodes_chests.lua ###
+Private NPC chest=Private NSC-Truhe
+Chest for work utils and kitchens=NSC-Truhe fuer Arbeitsutensilien und Kuechen
+Storage chest=NSC-Lagertruhe
+
+### nodes_doorlike.lua ###
+Opened window shutters=Offene Fensterlaeden
+Closed window shutters=Geschlossene Fensterlaeden
+Half door=Kloentuer
+Half door inverted=Umgekehrte Kloentuer
+Closed fence gate=Geschlossenes Zauntor
+Opened fence gate=Offenes Zauntor
+Wooden hatch=Holzfalltuer
+Metal hatch=Metallfalltuer
+
+### nodes_fences.lua ###
+Small fence=Kleiner Zaun
+Small fence corner=Kleiner Zaun (Ecke)
+Small fence end=Kleiner Zaun (Ende)
+
+### nodes_furniture.lua ###
+Bed (foot region)=Bett (Fussende)
+Bed (head region)=Bett (Kopfende)
+Sleeping mat=Schlafmatte
+Simple wooden bench=Einfache Holzbank
+Table=Tisch
+Protected open storage shelf=Geschütztes offenes Lagerregal
+Protected open storage shelf (in use)=Geschütztes offenes Lagerregal (in Gebrauch)
+Protected open storage shelf (empty)=Geschütztes offenes Lagerregal (leer)
+Stovepipe=Ofenrohr
+Washing place=Waschplatz
+Sorry. This washing place is out of water. Please place it above water!=Entschuldige, dieser Waschplatz hat kein Wasser mehr. Bitte platziere ihn ueber Wasser!
+You feel much cleaner after some washing.=Nach einer kleinen Waesche fuehlst du dich nun sauberer.
+Protected storage barrel=
+Protected storage barrel (in use)=
+Protected storage barrel (empty)=
+This place is too narrow for sleeping. At least for you!=
+place=
+That was enough sleep for now. You stand up again.=
+bed=
+mat=
+You lie down and take a nap. A right-click will wake you up.=
+That was enough sitting around for now. You stand up again.=
+Aaah! What a comfortable @1. A second right-click will let you sleep.=
+Comfortable, but not good enough for a nap. Right-click again if you want to get back up.=
+
+### nodes_historic.lua ###
+Wagon wheel=Wagenrad
+Dirt road=Feldweg
+Loam=Lehm
+Dirt Road Stairs=Feldwegtreppe
+Dirt Road, half height=Feldwegstufe
+Loam Stairs=Lehmtreppe
+Loam Slab=Lehmstufe
+Clay Stairs=Tontreppe
+Clay Slab=Tonstufe
+Straw ground for animals=Strohboden fuer Tiere
+Simple glass pane (centered)=
+Simple glass pane=Einfache Fensterscheibe
+Flat wooden planks=
+Wool for tents=
+Wool=
+
+### nodes_mining.lua ###
+Rope for climbing=
+Ladder with rail support=
+
+### nodes_roof.lua ###
+Roof straw=Strohdach
+Roof wood=Holzdach
+Roof black=Schwarzes Dach
+Roof red=Rotes Dach
+Roof brown=Braunes Dach
+Roof reet=Reetdach
+Roof slate=Schieferdach
+Roof connector straw=Strohdachverbinder
+Roof connector wood=Holzdachverbinder
+Roof connector black=Schwarzer Dachverbinder
+Roof connector red=Roter Dachverbinder
+Roof connector brown=Brauner Dachverbinder
+Roof connector reet=Reet-Dachverbinder
+Roof connector slate=Schiefer-Dachverbinder
+Roof (flat) straw=Strohdach (flach)
+Roof (flat) wood=Holzdach (flach)
+Roof (flat) black=Schwarzes Dach (flach)
+Roof (flat) red=Rotes Dach (flach)
+Roof (flat) brown=Braunes Dach (flach)
+Roof (flat) reet=Reetdach (flach)
+Roof (flat) slate=Schieferdach (flach)
+Vertical Slate=Vertikaler Schiefer
+Reet for thatching=Reet
+
+### nodes_straw.lua ###
+Layer of straw=Strohschicht
+Straw bale=Strohballen
+Straw=Stroh
+Supported grain :\n @1=
+Supported seed :\n @1=
+Threshing floor=Dreschboden
+Threshing floor (owned by @1)=Dreschboden (gehoert @1)
+Public threshing floor (owned by @1)=Öffentlicher Dreschboden (gehoert @1)
+Private threshing floor (owned by @1)=Privater Dreschboden (gehoert @1)
+Choose one type of grain: @1 or @2=
+Harvested grain:=
+Straw:=Stroh
+Seeds:=Koerner
+Owner: @1=Besitzer: @1
+Punch threshing floor with a stick=Schlage mit einem Stock auf den Dreschboden
+to get straw and seeds from grain.=
+You have threshed @1 grains (@2 are left).=
+You have threshed the last @1 grain.=
+Mill, powered by punching=Muehle, durch Schlagen antreiben
+Mill, powered by punching (owned by @1)=Muehle, durch Schlagen antreiben (gehoert @1)
+Public mill, powered by punching (owned by @1)=Öffentliche Muehle, durch Schlagen antreiben (gehoert @1)
+Private mill, powered by punching (owned by @1)=Private Muehle, durch Schlagen antreiben (gehoert @1)
+straw=
+seeds=
+Flour:=Mehl
+Mill=Muehle
+Owner: @1=Besitzer: @1
+Punch this hand-driven mill=Schlage auf diese handbetriebene Muehle
+to convert seeds into flour.=
+You have ground a @1 (@2 are left).=
+You have ground the last @1.=
+Your threshing floor can now be used by other players as well.=Dein Dreschboden kann jetzt auch von anderen Spielern benutzt werden.
+Your mill, powered by punching can now be used by other players as well.=Deine Mühle kann jetzt auch von anderen Spielern benutzt werden.
+Your threshing floor can only be used by yourself.=Dein Dreschboden kann jetzt nur noch von dir selbst benutzt werden.
+Your mill, powered by punching can only be used by yourself.=Deine Mühle kann jetzt nur noch von dir selbst benutzt werden.
+Public?=Oeffentlich?
+Public tree trunk well=Oeffentlicher Baumstammbrunnen
+Public tree trunk well (owned by @1)=Oeffentlicher Baumstammbrunnen (gehoert @1)
+Private tree trunk well (owned by @1)=Privater Baumstammbrunnen (gehoert @1)
+This tree trunk well is owned by @1. You can't use it.=Dieser Baumstammbrunnen gehoert @1. Du kannst ihn leider nicht benutzen.
+Sorry. You have no room for the bucket. Please free some space in your inventory first!=Du hast leider keinen Platz mehr fuer den Eimer. Bitte schaffe erst ein wenig Platz!
+Your tree trunk well can now be used by other players as well.=Dein Baumstammbrunnen kann jetzt auch von anderen Spielern benutzt werdn.
+Your tree trunk well can only be used by yourself.=Dein Baumstammbrunnen kann jetzt nur noch von dir selbst benutzt werdn.
+Pitchfork (dig dirt with grass to get hay, place with right-click)=Heugabel (grabe Erde mit Grass um Heu zu bekommen; Rechts-Klick zum Platzieren)
+Pitchfork (for hay and straw)=Heugabel (fuer Heu und Stroh)
+Some hay=Etwas Heu
+Hay=Heu
+Hay bale=Heuballen
