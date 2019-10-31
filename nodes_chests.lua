@@ -1,4 +1,3 @@
-
 -- TODO: make these chests as chests and indicate that they are owned by npc
 -- TODO: add bags (not for carrying around but for decoration)
 
@@ -16,7 +15,7 @@ cottages_chests.on_construct = function(pos)
 	end
 
 cottages_chests.can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
+		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		return inv:is_empty("main")
 	end
@@ -27,35 +26,34 @@ minetest.register_node("cottages:chest_private", {
         description = S("private NPC chest"),
         infotext = "chest containing the possesions of one of the inhabitants",
 	tiles = cottages.texture_chest,
-        paramtype2 = "facedir",
-        groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
-        legacy_facedir_simple = true,
-        on_construct = cottages_chests.on_construct,
-        can_dig      = cottages_chests.can_dig,
-	is_ground_content = false,
+	paramtype2 = "facedir",
+	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
+	legacy_facedir_simple = true,
+	on_construct = cottages_chests.on_construct,
+	can_dig = cottages_chests.can_dig,
+	is_ground_content = false
 })
 
 minetest.register_node("cottages:chest_work", {
         description = S("chest for work utils and kitchens"),
         infotext = "everything the inhabitant needs for his work",
 	tiles = cottages.texture_chest,
-        paramtype2 = "facedir",
-        groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
-        legacy_facedir_simple = true,
-        on_construct = cottages_chests.on_construct,
-        can_dig      = cottages_chests.can_dig,
-	is_ground_content = false,
+	paramtype2 = "facedir",
+	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
+	legacy_facedir_simple = true,
+	on_construct = cottages_chests.on_construct,
+	can_dig = cottages_chests.can_dig,
+	is_ground_content = false
 })
 
 minetest.register_node("cottages:chest_storage", {
         description = S("storage chest"),
         infotext = "stored food reserves",
 	tiles = cottages.texture_chest,
-        paramtype2 = "facedir",
-        groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
-        legacy_facedir_simple = true,
-        on_construct = cottages_chests.on_construct,
-        can_dig      = cottages_chests.can_dig,
-	is_ground_content = false,
+	paramtype2 = "facedir",
+	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
+	legacy_facedir_simple = true,
+	on_construct = cottages_chests.on_construct,
+	can_dig = cottages_chests.can_dig,
+	is_ground_content = false
 })
-

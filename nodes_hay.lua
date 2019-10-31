@@ -1,7 +1,7 @@
+local S = cottages.S
+
 -- contains hay_mat, hay and hay bale
 -- (gives the pitchfork some work)
---
-local S = cottages.S
 
 -- If default:dirt_with_grass is digged while wielding a pitchfork, it will
 -- turn into dirt and get some hay placed above it.
@@ -38,8 +38,6 @@ if(     minetest.registered_items["default:dirt_with_grass"]
   })
 end
 
-
-
 -- more comparable to the straw mat than to a hay bale
 -- (can be created by digging dirt with grass with the pitchfork)
 minetest.register_node("cottages:hay_mat", {
@@ -47,7 +45,7 @@ minetest.register_node("cottages:hay_mat", {
 	paramtype2 = "leveled",
 	description = S("Some hay"),
 	tiles = {cottages.straw_texture.."^[multiply:#88BB88"},
-	groups = {hay=3, snappy=2, oddly_breakable_by_hand=2, flammable=3},
+	groups = {hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 	sounds = cottages.sounds.leaves,
         -- the bale is slightly smaller than a full node
 	is_ground_content = false,
@@ -74,11 +72,10 @@ minetest.register_node("cottages:hay_mat", {
 minetest.register_node("cottages:hay", {
 	description = S("Hay"),
 	tiles = {cottages.straw_texture.."^[multiply:#88BB88"},
-	groups = {hay=3, snappy=2, oddly_breakable_by_hand=2, flammable=3},
+	groups = {hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 	sounds = cottages.sounds.leaves,
 	is_ground_content = false,
 })
-
 
 -- hay bales for hungry animals
 minetest.register_node("cottages:hay_bale", {
@@ -86,7 +83,7 @@ minetest.register_node("cottages:hay_bale", {
 	description = S("Hay bale"),
 	tiles = {"cottages_darkage_straw_bale.png^[multiply:#88BB88"},
 	paramtype = "light",
-	groups = {hay=3, snappy=2, oddly_breakable_by_hand=2, flammable=3},
+	groups = {hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 	sounds = cottages.sounds.leaves,
         -- the bale is slightly smaller than a full node
 	node_box = {
@@ -103,7 +100,6 @@ minetest.register_node("cottages:hay_bale", {
 	},
 	is_ground_content = false,
 })
-
 
 --
 -- craft recipes

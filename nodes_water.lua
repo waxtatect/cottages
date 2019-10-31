@@ -1,4 +1,3 @@
-
 -- TODO: play sound while working
 -- TODO: play sound when emptying a bucket
 -- TODO: store correct bucket texture when loading the world anew
@@ -7,11 +6,10 @@
 -- well for getting water
 --   * has some storage space for buckets (filled with water, river water or empty)
 --   * only the owner can use the bucket store and the well
---   * the bucket will be added as an entity and slowly rotate;
+--   * the bucket will be added as an entity and slowly rotate
 --     once filled, the texture of the bucket is changed
 --   * full (water or river water) buckets can be emptied
---   * by default public; but can also be made private
-
+--   * by default public but can also be made private
 
 -- how many seconds does it take to fill a bucket?
 cottages.water_fill_time = 10
@@ -109,7 +107,6 @@ cottages.water_gen_fill_bucket = function(pos)
 	end
 end
 
-
 minetest.register_node("cottages:water_gen", {
 	description = "Tree Trunk Well",
 	tiles = {"default_tree_top.png", "default_tree.png^[transformR90", "default_tree.png^[transformR90"},
@@ -176,7 +173,7 @@ minetest.register_node("cottages:water_gen", {
 		meta:set_string("public", "public")
 		end,
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
+		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		return inv:is_empty("main") and
 				default.can_interact_with_node(player, pos)
@@ -279,8 +276,8 @@ minetest.register_node("cottages:water_gen", {
 			-- fill the bucket with water
 			minetest.after(cottages.water_fill_time, cottages.water_gen_fill_bucket, pos)
 			-- the bucket will only be filled if the water ran long enough
-			meta:set_string("fillstarttime", tostring(minetest.get_us_time()/1000000)) 
- 			return;
+			meta:set_string("fillstarttime", tostring(minetest.get_us_time()/1000000))
+ 			return
 		end
 		-- buckets can also be emptied here
 		if(    wielded
@@ -293,14 +290,13 @@ minetest.register_node("cottages:water_gen", {
 			-- add empty bucket
 			pinv:add_item("main", "bucket:bucket_empty")
 			-- TODO: play diffrent sound when pouring a bucket
- 			return;
+ 			return
 		end
-		    
+
 		-- else check if there is a bucket that can be retrieved
 		meta:set_string("bucket","")
 	end,
 })
-
 
 -- a well (will fill water buckets) crafted from wooden materials
 minetest.register_craft({
@@ -311,4 +307,3 @@ minetest.register_craft({
 		{'default:tree', 'default:tree', 'default:tree'},
 	}
 })
-

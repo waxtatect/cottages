@@ -4,7 +4,7 @@
 -- * can be used to repair tools
 -- * the hammer gets dammaged a bit at each repair step
 ---------------------------------------------------------------------------------------
--- License of the hammer picture: CC-by-SA; done by GloopMaster; source:
+-- License of the hammer picture: CC-by-SA, done by GloopMaster, source:
 --   https://github.com/GloopMaster/glooptest/blob/master/glooptest/textures/glooptest_tool_steelhammer.png
 
 local S = cottages.S
@@ -118,7 +118,7 @@ minetest.register_node("cottages:anvil", {
                 if( player and player:get_player_name() ~= meta:get_string('owner' ) and from_list~="input") then
                         return 0
 		end
-		return count;
+		return count
 	end,
 
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
@@ -201,37 +201,34 @@ minetest.register_node("cottages:anvil", {
 			scale = {x = 15, y = 15},
 			text = hud_image,
 			position = {x = 0.5, y = 0.5},
-			alignment = {x = 0, y = 0}
-		});
-		local hud2 = nil;
-		local hud3 = nil;
-		if( input:get_wear()>0 ) then
+			alignment = {x = 0, y = 0}})
+		local hud2 = nil
+		local hud3 = nil
+		if input:get_wear() > 0 then
 			hud2 = puncher:hud_add({
 				hud_elem_type = "statbar",
 				text = "default_cloud.png^[colorize:#ff0000:256",
 				number = 40,
 				direction = 0, -- left to right
-				position = {x=0.5, y=0.65},
+				position = {x = 0.5, y = 0.65},
 				alignment = {x = 0, y = 0},
 				offset = {x = -320, y = 0},
-				size = {x=32, y=32},
-			})
+				size = {x = 32, y = 32}})
 			hud3 = puncher:hud_add({
 				hud_elem_type = "statbar",
 				text = "default_cloud.png^[colorize:#00ff00:256",
 				number = damage_state,
 				direction = 0, -- left to right
-				position = {x=0.5, y=0.65},
+				position = {x = 0.5, y = 0.65},
 				alignment = {x = 0, y = 0},
 				offset = {x = -320, y = 0},
-				size = {x=32, y=32},
-			});
+				size = {x = 32, y = 32}})
 		end
 		minetest.after(2, function()
-			if( puncher ) then
-				puncher:hud_remove(hud1);
-				puncher:hud_remove(hud2);
-				puncher:hud_remove(hud3);
+			if puncher then
+				puncher:hud_remove(hud1)
+				puncher:hud_remove(hud2)
+				puncher:hud_remove(hud3)
 			end
 		end)
 
@@ -243,61 +240,48 @@ minetest.register_node("cottages:anvil", {
 		end
 
 		-- do the actual repair
-		input:add_wear( -5000 ); -- equals to what technic toolshop does in 5 seconds
+		input:add_wear(-5000) -- equals to what technic toolshop does in 5 seconds
 		inv:set_stack("input", 1, input)
 
 		-- damage the hammer slightly
-		wielded:add_wear( 100 );
-		puncher:set_wielded_item( wielded );
+		wielded:add_wear(100)
+		puncher:set_wielded_item(wielded)
 
 		-- do not spam too much
---		if( math.random( 1,5 )==1 ) then
---			minetest.chat_send_player( puncher:get_player_name(),
---				S('Your workpiece improves.'));
---		end
-	end,
-	is_ground_content = false,
+		-- if math.random(1,5) == 1 then
+			-- minetest.chat_send_player(puncher:get_player_name(),
+				-- S('Your workpiece improves.'))
+		-- end
+	end
 })
 
-
-
 ---------------------------------------------------------------------------------------
--- crafting receipes
+-- crafting recipes
 ---------------------------------------------------------------------------------------
 minetest.register_craft({
 	output = "cottages:anvil",
 	recipe = {
-                {cottages.craftitem_steel,cottages.craftitem_steel,cottages.craftitem_steel},
-                {'',                   cottages.craftitem_steel,''                   },
-                {cottages.craftitem_steel,cottages.craftitem_steel,cottages.craftitem_steel} },
+		{cottages.craftitem_steel, cottages.craftitem_steel, cottages.craftitem_steel},
+		{''                      , cottages.craftitem_steel, ''                      },
+		{cottages.craftitem_steel, cottages.craftitem_steel, cottages.craftitem_steel}}
 })
 
-
--- the castle-mod has an anvil as well - with the same receipe. convert the two into each other
-if ( minetest.get_modpath("castle") ~= nil ) then
-
-  minetest.register_craft({
-	output = "cottages:anvil",
-	recipe = {
-		 {'castle:anvil'},
-		},
-  }) 
-
-  minetest.register_craft({
-	output = "castle:anvil",
-	recipe = {
-		 {'cottages:anvil'},
-		},
-  }) 
+-- the castle-mod has an anvil as well - with the same recipe. convert the two into each other
+if minetest.get_modpath("castle") ~= nil then
+	minetest.register_craft({
+		output = "cottages:anvil",
+		recipe = {{'castle:anvil'}}
+	})
+	minetest.register_craft({
+		output = "castle:anvil",
+		recipe = {{'cottages:anvil'}}
+	})
 end
-
-
 
 minetest.register_craft({
 	output = "cottages:hammer",
 	recipe = {
-                {cottages.craftitem_steel},
-                {'cottages:anvil'},
-                {cottages.craftitem_stick} }
+		{cottages.craftitem_steel},
+		{'cottages:anvil'},
+		{cottages.craftitem_stick}}
 })
-

@@ -1,79 +1,74 @@
 ---------------------------------------------------------------------------------------
 -- straw - a very basic material
 ---------------------------------------------------------------------------------------
---  * straw mat - for animals and very poor NPC; also basis for other straw things
+--  * straw mat - for animals and very poor NPC, also basis for other straw things
 --  * straw bale - well, just a good source for building and decoration
 
 local S = cottages.S
-
 
 -- an even simpler from of bed - usually for animals 
 -- it is a nodebox and not wallmounted because that makes it easier to replace beds with straw mats
 minetest.register_node("cottages:straw_mat", {
         description = S("layer of straw"),
-        drawtype = 'nodebox',
-        tiles = { cottages.straw_texture }, -- done by VanessaE
-        wield_image = cottages.straw_texture,
-        inventory_image = cottages.straw_texture,
-        sunlight_propagates = true,
-        paramtype = 'light',
-        paramtype2 = "facedir",
-        walkable = false,
-	groups = { hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable=3 },
+	drawtype = 'nodebox',
+	tiles = {cottages.straw_texture}, -- done by VanessaE
+	wield_image = cottages.straw_texture,
+	inventory_image = cottages.straw_texture,
+	sunlight_propagates = true,
+	paramtype = 'light',
+	paramtype2 = "facedir",
+	walkable = false,
+	groups = {hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable= 3},
 	sounds = cottages.sounds.leaves,
 	node_box = {
 		type = "fixed",
 		fixed = {
-					{-0.48, -0.5,-0.48,  0.48, -0.45, 0.48},
-			}
+			{-0.48, -0.5,-0.48, 0.48, -0.45, 0.48}}
 	},
 	selection_box = {
 		type = "fixed",
 		fixed = {
-					{-0.48, -0.5,-0.48,  0.48, -0.25, 0.48},
-			}
+			{-0.48, -0.5,-0.48, 0.48, -0.25, 0.48}}
 	},
 	is_ground_content = false,
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-		return cottages.sleep_in_bed( pos, node, clicker, itemstack, pointed_thing );
+		return cottages.sleep_in_bed(pos, node, clicker, itemstack, pointed_thing)
 	end
 })
 
--- straw bales are a must for farming environments; if you for some reason do not have the darkage mod installed, this here gets you a straw bale
+-- straw bales are a must for farming environments, if you for some reason do not have the darkage mod installed, this here gets you a straw bale
 minetest.register_node("cottages:straw_bale", {
 	drawtype = "nodebox",
 	description = S("straw bale"),
 	tiles = {"cottages_darkage_straw_bale.png"},
 	paramtype = "light",
-	groups = { hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable=3 },
+	groups = {hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 	sounds = cottages.sounds.leaves,
-        -- the bale is slightly smaller than a full node
+	-- the bale is slightly smaller than a full node
 	node_box = {
 		type = "fixed",
 		fixed = {
-					{-0.45, -0.5,-0.45,  0.45,  0.45, 0.45},
-			}
+			{-0.45, -0.5,-0.45,  0.45,  0.45, 0.45}}
 	},
 	selection_box = {
 		type = "fixed",
 		fixed = {
-					{-0.45, -0.5,-0.45,  0.45,  0.45, 0.45},
-			}
+			{-0.45, -0.5,-0.45,  0.45,  0.45, 0.45}}
 	},
 	is_ground_content = false,
 })
 
 -- just straw
-if( not(minetest.registered_nodes["farming:straw"])) then
+if(not(minetest.registered_nodes["farming:straw"])) then
    minetest.register_node("cottages:straw", {
 	drawtype = "normal",
 	description = S("straw"),
 	tiles = {cottages.straw_texture},
-	groups = { hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable=3 },
+	groups = {hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 	sounds = cottages.sounds.leaves,
-        -- the bale is slightly smaller than a full node
-	is_ground_content = false,
-   })
+	-- the bale is slightly smaller than a full node
+	is_ground_content = false
+  })
 else
 	minetest.register_alias("cottages:straw", "farming:straw")
 end
@@ -100,28 +95,24 @@ minetest.register_node("cottages:threshing_floor", {
 	description = S("threshing floor"),
 -- TODO: stone also looks pretty well for this
 	tiles = {"cottages_junglewood.png^farming_wheat.png","cottages_junglewood.png","cottages_junglewood.png^"..cottages.texture_stick},
-	paramtype  = "light",
-        paramtype2 = "facedir",
-	-- can be digged with axe and pick
-	groups = {cracky=2, choppy=2},
+	paramtype = "light",
+	paramtype2 = "facedir",
+	-- can be dug with an axe and a pick
+	groups = {cracky = 2, choppy = 2},
 	is_ground_content = false,
 	node_box = {
 		type = "fixed",
 		fixed = {
-					{-0.50, -0.5,-0.50, 0.50, -0.40, 0.50},
-
-					{-0.50, -0.4,-0.50,-0.45, -0.20, 0.50},
-					{ 0.45, -0.4,-0.50, 0.50, -0.20, 0.50},
-
-					{-0.45, -0.4,-0.50, 0.45, -0.20,-0.45},
-					{-0.45, -0.4, 0.45, 0.45, -0.20, 0.50},
-			}
+			{-0.50, -0.5,-0.50, 0.50, -0.40, 0.50},
+			{-0.50, -0.4,-0.50,-0.45, -0.20, 0.50},
+			{0.45, -0.4,-0.50, 0.50, -0.20, 0.50},
+			{-0.45, -0.4,-0.50, 0.45, -0.20,-0.45},
+			{-0.45, -0.4, 0.45, 0.45, -0.20, 0.50}}
 	},
 	selection_box = {
 		type = "fixed",
 		fixed = {
-					{-0.50, -0.5,-0.50, 0.50, -0.20, 0.50},
-			}
+			{-0.50, -0.5,-0.50, 0.50, -0.20, 0.50}}
 	},
 	on_construct = function(pos)
                	local meta = minetest.get_meta(pos);
@@ -167,10 +158,10 @@ minetest.register_node("cottages:threshing_floor", {
 
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta = minetest.get_meta(pos)
-		if( not( cottages.player_can_use( meta, player ))) then
-                        return 0
+		if(not(cottages.player_can_use(meta, player))) then
+			return 0
 		end
-		return count;
+		return count
 	end,
 
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
@@ -179,43 +170,42 @@ minetest.register_node("cottages:threshing_floor", {
 		if(    listname=='straw'
 		    or listname=='seeds' 
 		    or (listname=='harvest' and stack and stack:get_name() ~= 'farming:wheat' )) then
-			return 0;
+			return 0
 		end
 
-		if( not( cottages.player_can_use( meta, player ))) then
-                        return 0
+		if(not(cottages.player_can_use(meta, player))) then
+			return 0
 		end
 		return stack:get_count()
 	end,
 
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
-		if( not( cottages.player_can_use( meta, player ))) then
+		if(not(cottages.player_can_use(meta, player))) then
                         return 0
 		end
 		return stack:get_count()
 	end,
 
-
-	on_punch = function(pos, node, puncher)
-		if( not( pos ) or not( node ) or not( puncher )) then
-			return;
+	on_punch = function(pos, node, puncher)	
+		if(not(pos) or not(node) or not(puncher)) then
+			return
 		end
 		-- only punching with a normal stick is supposed to work
-		local wielded = puncher:get_wielded_item();
-		if(    not( wielded )
-		    or not( wielded:get_name() )
-		    or not( minetest.registered_items[ wielded:get_name() ])
-		    or not( minetest.registered_items[ wielded:get_name() ].groups )
-		    or not( minetest.registered_items[ wielded:get_name() ].groups.stick )) then
- 			return;
+		local wielded = puncher:get_wielded_item()
+		if(not(wielded)
+		    or not(wielded:get_name())
+		    or not(minetest.registered_items[wielded:get_name()])
+		    or not(minetest.registered_items[wielded:get_name()].groups)
+		    or not(minetest.registered_items[wielded:get_name()].groups.stick)) then
+ 			return
 		end
-		local name = puncher:get_player_name();
+		local name = puncher:get_player_name()
 
-               	local meta = minetest.get_meta(pos);
-               	local inv = meta:get_inventory();
+		local meta = minetest.get_meta(pos)
+		local inv = meta:get_inventory()
 
-		local input = inv:get_list('harvest');
+		local input = inv:get_list('harvest')
 		-- we have two input slots
 		local stack1 = inv:get_stack( 'harvest', 1);
 		local stack2 = inv:get_stack( 'harvest', 2);
@@ -266,7 +256,7 @@ minetest.register_node("cottages:threshing_floor", {
 --				minetest.chat_send_player( name, S('You have threshed the last %s wheat.'):format(anz_wheat));
 				overlay1 = "";
 			end
-		end	
+		end
 
 		local hud0 = puncher:hud_add({
 			hud_elem_type = "image",
@@ -274,7 +264,7 @@ minetest.register_node("cottages:threshing_floor", {
 			text = "cottages_junglewood.png^[colorize:#888888:128",
 			position = {x = 0.5, y = 0.5},
 			alignment = {x = 0, y = 0}
-		});
+		})
 
 		local hud1 = puncher:hud_add({
 			hud_elem_type = "image",
@@ -282,21 +272,21 @@ minetest.register_node("cottages:threshing_floor", {
 			text = "cottages_junglewood.png"..overlay1,
 			position = {x = 0.4, y = 0.5},
 			alignment = {x = 0, y = 0}
-		});
+		})
 		local hud2 = puncher:hud_add({
 			hud_elem_type = "image",
 			scale = {x = 15, y = 15},
 			text = "cottages_junglewood.png"..overlay2,
 			position = {x = 0.6, y = 0.35},
 			alignment = {x = 0, y = 0}
-		});
+		})
 		local hud3 = puncher:hud_add({
 			hud_elem_type = "image",
 			scale = {x = 15, y = 15},
 			text = "cottages_junglewood.png"..overlay3,
 			position = {x = 0.6, y = 0.65},
 			alignment = {x = 0, y = 0}
-		});
+		})
 
 		local hud4 = puncher:hud_add({
 			hud_elem_type = "text",
@@ -305,12 +295,12 @@ minetest.register_node("cottages:threshing_floor", {
 			alignment = {x = 0, y = 0},
 			scale = {x = 100, y = 100}, -- bounding rectangle of the text
 			position = {x = 0.4, y = 0.5},
-		});
-		if( not( anz_straw )) then
-			anz_straw = "0";
+		})
+		if(not(anz_straw)) then
+			anz_straw = "0"
 		end
-		if( not( anz_seed )) then
-			anz_seed = "0";
+		if(not(anz_seeds)) then
+			anz_seeds = "0"
 		end
 		local hud5 = puncher:hud_add({
 			hud_elem_type = "text",
@@ -319,7 +309,7 @@ minetest.register_node("cottages:threshing_floor", {
 			alignment = {x = 0, y = 0},
 			scale = {x = 100, y = 100}, -- bounding rectangle of the text
 			position = {x = 0.6, y = 0.35},
-		});
+		})
 		local hud6 = puncher:hud_add({
 			hud_elem_type = "text",
 			text = '+ '..tostring( anz_seed )..' seeds',
@@ -327,19 +317,17 @@ minetest.register_node("cottages:threshing_floor", {
 			alignment = {x = 0, y = 0},
 			scale = {x = 100, y = 100}, -- bounding rectangle of the text
 			position = {x = 0.6, y = 0.65},
-		});
-
-
+		})
 
 		minetest.after(2, function()
-			if( puncher ) then
-				puncher:hud_remove(hud1);
-				puncher:hud_remove(hud2);
-				puncher:hud_remove(hud3);
-				puncher:hud_remove(hud4);
-				puncher:hud_remove(hud5);
-				puncher:hud_remove(hud6);
-				puncher:hud_remove(hud0);
+			if(puncher) then
+				puncher:hud_remove(hud1)
+				puncher:hud_remove(hud2)
+				puncher:hud_remove(hud3)
+				puncher:hud_remove(hud4)
+				puncher:hud_remove(hud5)
+				puncher:hud_remove(hud6)
+				puncher:hud_remove(hud0)
 			end
 		end)
 	end,
@@ -365,19 +353,17 @@ minetest.register_node("cottages:handmill", {
 	tiles = {"cottages_stone.png"},
 	paramtype  = "light",
 	paramtype2 = "facedir",
-	groups = {cracky=2},
+	groups = {cracky = 2},
 	is_ground_content = false,
 	selection_box = {
 		type = "fixed",
 		fixed = {
-					{-0.50, -0.5,-0.50, 0.50,  0.25, 0.50},
-			}
+			{-0.50, -0.5,-0.50, 0.50, 0.25, 0.50}}
 	},
 	collision_box = {
 		type = "fixed",
 		fixed = {
-					{-0.50, -0.5,-0.50, 0.50,  0.25, 0.50},
-			}
+			{-0.50, -0.5,-0.50, 0.50,  0.25, 0.50}}
 	},
 	on_construct = function(pos)
                	local meta = minetest.get_meta(pos);
@@ -416,8 +402,8 @@ minetest.register_node("cottages:handmill", {
 
 		   return false;
 		end
-                return true;
-        end,
+		return true
+	end,
 
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta = minetest.get_meta(pos)
@@ -499,59 +485,56 @@ minetest.register_node("cottages:handmill", {
 			inv:add_item(    'flour', product_stack:get_name()..' '..tostring( anz_result ));
 			inv:remove_item( 'seeds', stack1:get_name()..' '..tostring( anz ));
 
-			local anz_left = found - anz;
 			if( anz_left > 0 ) then
 				minetest.chat_send_player( name, S('You have ground a %s (%s are left).'):format(stack1:get_definition().description,(anz_left)));
+			local anz_left = found - anz
 			else
 				minetest.chat_send_player( name, S('You have ground the last %s.'):format(stack1:get_definition().description));
 			end
 
 			-- if the version of MT is recent enough, rotate the mill a bit
-			if( minetest.swap_node ) then
-				node.param2 = node.param2 + 1;
-				if( node.param2 > 3 ) then
-					node.param2 = 0;
+			if(minetest.swap_node) then
+				node.param2 = node.param2 + 1
+				if(node.param2 > 3) then
+					node.param2 = 0
 				end
-				minetest.swap_node( pos, node );
+				minetest.swap_node(pos, node)
 			end
-		end	
-	end,
+		end
+	end
 })
 
-
-
-
 ---------------------------------------------------------------------------------------
--- crafting receipes
+-- crafting recipes
 ---------------------------------------------------------------------------------------
 -- this returns corn as well
 -- the replacements work only if the replaced slot gets empty...
 minetest.register_craft({
 	output = "cottages:straw_mat 6",
 	recipe = {
-                {cottages.craftitem_stone,'',''},
-		{"farming:wheat", "farming:wheat", "farming:wheat", },
+		{cottages.craftitem_stone, ""             , ""},
+		{"farming:wheat"         , "farming:wheat", "farming:wheat",}
 	},
-        replacements = {{ cottages.craftitem_stone, cottages.craftitem_seed_wheat.." 3" }},  
+	replacements = {{cottages.craftitem_stone, cottages.craftitem_seed_wheat.." 3"}}
 })
 
 -- this is a better way to get straw mats
 minetest.register_craft({
 	output = "cottages:threshing_floor",
 	recipe = {
-		{cottages.craftitem_junglewood, cottages.craftitem_chest_locked, cottages.craftitem_junglewood, },
-		{cottages.craftitem_junglewood, cottages.craftitem_stone,        cottages.craftitem_junglewood, },
-	},
+		{cottages.craftitem_junglewood, cottages.craftitem_chest_locked, cottages.craftitem_junglewood},
+		{cottages.craftitem_junglewood, cottages.craftitem_stone       , cottages.craftitem_junglewood}
+	}
 })
 
 -- and a way to turn wheat seeds into flour
 minetest.register_craft({
 	output = "cottages:handmill",
 	recipe = {
-		{cottages.craftitem_stick,     cottages.craftitem_stone,    "", },
-		{"",               cottages.craftitem_steel, "", },
-		{"",                  cottages.craftitem_stone,    "", },
-	},
+		{cottages.craftitem_stick, cottages.craftitem_stone, ""},
+		{"", cottages.craftitem_steel                      , ""},
+		{"", cottages.craftitem_stone                      , ""}
+	}
 })
 
 minetest.register_craft({
@@ -559,27 +542,28 @@ minetest.register_craft({
 	recipe = {
 		{"cottages:straw_mat"},
 		{"cottages:straw_mat"},
-		{"cottages:straw_mat"},
-	},
+		{"cottages:straw_mat"}
+	}
 })
 
 minetest.register_craft({
 	output = "cottages:straw",
 	recipe = {
-		{"cottages:straw_bale"},
-	},
+		{"cottages:straw_mat", "cottages:straw_mat", "cottages:straw_mat"}
+	}
+})
+
+minetest.register_craft({
+	output = "cottages:straw",
+	recipe = {{"cottages:straw_bale"}}
 })
 
 minetest.register_craft({
 	output = "cottages:straw_bale",
-	recipe = {
-		{"cottages:straw"},
-	},
+	recipe = {{"cottages:straw"}}
 })
 
 minetest.register_craft({
 	output = "cottages:straw_mat 3",
-	recipe = {
-		{"cottages:straw_bale"},
-	},
+	recipe = {{"cottages:straw_bale"}}
 })

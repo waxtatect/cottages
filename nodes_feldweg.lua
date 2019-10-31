@@ -3,7 +3,7 @@
 ---------------------------------------------------------------------------------------
 -- * includes a wagon wheel that can be used as decoration on walls or to build (stationary) wagons
 -- * dirt road - those are more natural in small old villages than cobble roads
--- * loam - no, old buildings are usually not built out of clay; loam was used
+-- * loam - no, old buildings are usually not built out of clay loam was used
 -- * straw - useful material for roofs
 -- * glass pane - an improvement compared to fence posts as windows :-)
 ---------------------------------------------------------------------------------------
@@ -11,8 +11,8 @@
 local S = cottages.S
 
 -- supported modes:
--- * simple: only a straight dirt road; no curves, junctions etc.
--- * flat: each node is a full node; junction, t-junction and corner are included
+-- * simple: only a straight dirt road, no curves, junctions etc.
+-- * flat: each node is a full node, junction, t-junction and corner are included
 -- * nodebox: like flat - except that each node has a nodebox that fits to that road node
 -- * mesh: like nodebox - except that it uses a nice roundish model
 local cottages_feldweg_mode = minetest.settings:get("cottages_feldweg_mode")
@@ -20,7 +20,7 @@ if(     cottages_feldweg_mode ~= "mesh"
     and cottages_feldweg_mode ~= "flat"
     and cottages_feldweg_mode ~= "nodebox"
     and cottages_feldweg_mode ~= "flat") then
-	cottages_feldweg_mode = "mesh";
+	cottages_feldweg_mode = "mesh"
     -- add the setting to the minetest.conf so that the player can set it there
     minetest.settings:set("cottages_feldweg_mode", "mesh")
 end
@@ -291,11 +291,10 @@ elseif( cottages_feldweg_mode == "nodebox" ) then
 		},
 	})
 
-	register_recipes(false)                               
-	                                          
+	register_recipes(false)
 
 --
--- the mesh version (rounded); provided and created by VanessaE
+-- the mesh version (rounded), provided and created by VanessaE
 --
 elseif( cottages_feldweg_mode == "mesh" ) then
 
@@ -369,9 +368,7 @@ elseif( cottages_feldweg_mode == "mesh" ) then
 		drawtype = "mesh",
 		mesh = "feldweg-curve.obj",
 	})
-
-
-							
+					
 	minetest.register_node("cottages:feldweg_end", {
 		description = S("dirt road end"),
 		paramtype2 = "facedir",
@@ -388,13 +385,9 @@ elseif( cottages_feldweg_mode == "mesh" ) then
 		drawtype = "mesh",
 		mesh = "feldweg_end.obj",
 	})
-	   
-	                                          
-	register_recipes(true)
- 
-	                                          
+                                  
+	register_recipes(true)                           
 end
-
 
 -- create stairs if possible
 if( minetest.get_modpath("stairs") and stairs and stairs.register_stair_and_slab) then
@@ -414,7 +407,7 @@ if( cottages_feldweg_mode == "nodebox" or cottages_feldweg_mode == "mesh" ) then
 				{-0.5, -0.25, -0.25, 0.5,     0, 0.5},
 				{-0.5,     0,     0, 0.5,  0.25, 0.5},
 				{-0.5,  0.25,  0.25, 0.5,   0.5, 0.5}
-			}};
+			}}
 
 	local box_slope_long = {
 			type = "fixed",
@@ -424,7 +417,7 @@ if( cottages_feldweg_mode == "nodebox" or cottages_feldweg_mode == "mesh" ) then
 				{-0.5, -0.25,  -1.0, 0.5,     0, 0.5},
 				{-0.5,     0,  -0.5, 0.5,  0.25, 0.5},
 				{-0.5,  0.25,     0, 0.5,   0.5, 0.5}
-			}};
+			}}
 
 	minetest.register_node("cottages:feldweg_slope", {
 		description = S("dirt road slope"),
@@ -441,13 +434,10 @@ if( cottages_feldweg_mode == "nodebox" or cottages_feldweg_mode == "mesh" ) then
 		paramtype = "light",
 		drawtype = "mesh",
 		mesh = "feldweg_slope.obj",
-
-                collision_box = box_slope,
+		collision_box = box_slope,
 		selection_box = box_slope,
 	})
-
-                                 
-	                                          
+                                     
 	minetest.register_node("cottages:feldweg_slope_long", {
 		description = S("dirt road slope long"),
 		paramtype2 = "facedir",
@@ -463,7 +453,7 @@ if( cottages_feldweg_mode == "nodebox" or cottages_feldweg_mode == "mesh" ) then
 		paramtype = "light",
 		drawtype = "mesh",
 		mesh = "feldweg_slope_long.obj",
-                collision_box = box_slope_long,
+		collision_box = box_slope_long,
 		selection_box = box_slope_long,
 	})
 	        

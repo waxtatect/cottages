@@ -1,4 +1,3 @@
-
 -- Version: 2.2
 -- Autor:   Sokomine
 -- License: GPLv3
@@ -32,10 +31,10 @@ else
 end
 
 cottages.sounds = {}
--- MineClone2 needs special treatment; default is only needed for
+-- MineClone2 needs special treatment, default is only needed for
 -- crafting materials and sounds (less important)
 if( not( minetest.get_modpath("default"))) then
-	default = {};
+	default = {}
 	cottages.sounds.wood   = nil
 	cottages.sounds.dirt   = nil
 	cottages.sounds.leaves = nil
@@ -56,8 +55,8 @@ if( false and minetest.registered_nodes["farming:straw"]) then
 else
 	cottages.straw_texture = "cottages_darkage_straw.png"
 end
---cottages.config_use_mesh_barrel   = false;
---cottages.config_use_mesh_handmill = true;
+--cottages.config_use_mesh_barrel   = false
+--cottages.config_use_mesh_handmill = true
 
 -- set alternate crafting materials and textures where needed
 -- (i.e. in combination with realtest)
@@ -76,30 +75,30 @@ cottages.handmill_product[ 'default:cactus' ] = 'dye:green 6';
 cottages.handmill_product[ 'default:coal_lump'] = 'dye:black 6';
 --]]
 -- process that many inputs per turn
-cottages.handmill_max_per_turn = 20;
-cottages.handmill_min_per_turn = 0;
+cottages.handmill_max_per_turn = 20
+cottages.handmill_min_per_turn = 0
 
-dofile(minetest.get_modpath("cottages").."/functions.lua");
+dofile(minetest.get_modpath("cottages").."/functions.lua")
 
--- uncomment parts you do not want
-dofile(minetest.get_modpath("cottages").."/nodes_furniture.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_historic.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_feldweg.lua");
+-- comment parts you do not want
+dofile(minetest.get_modpath("cottages").."/nodes_furniture.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_historic.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_feldweg.lua")
 -- allows to dig hay and straw fast
-dofile(minetest.get_modpath("cottages").."/nodes_pitchfork.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_straw.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_hay.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_anvil.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_doorlike.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_fences.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_roof.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_barrel.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_mining.lua");
-dofile(minetest.get_modpath("cottages").."/nodes_water.lua");
---dofile(minetest.get_modpath("cottages").."/nodes_chests.lua");
+dofile(minetest.get_modpath("cottages").."/nodes_pitchfork.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_straw.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_hay.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_anvil.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_doorlike.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_fences.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_roof.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_barrel.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_mining.lua")
+dofile(minetest.get_modpath("cottages").."/nodes_water.lua")
+--dofile(minetest.get_modpath("cottages").."/nodes_chests.lua")
 
 -- this is only required and useful if you run versions of the random_buildings mod where the nodes where defined inside that mod
-dofile(minetest.get_modpath("cottages").."/alias.lua");
+dofile(minetest.get_modpath("cottages").."/alias.lua")
 
 -- variable no longer needed
-cottages.S = nil;
+cottages.S = nil

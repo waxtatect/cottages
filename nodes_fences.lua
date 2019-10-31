@@ -153,7 +153,3 @@ minetest.register_craft({
 		{"cottages:fence_end" },
 	}
 })
-
-
-
-

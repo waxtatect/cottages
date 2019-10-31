@@ -1,7 +1,6 @@
-
 local S = cottages.S
 
--- fast tool for digging nodes with the group "hay";
+-- fast tool for digging nodes with the group "hay"
 -- can also be placed as a node
 
 -- the straw node from default and similar nodes can be digged with the pitchfork as well
@@ -14,7 +13,7 @@ for i, v in ipairs(add_hay_group) do
 	end
 end
 
--- creates hay when digging dirt_with_grass (thanks to the override above);
+-- creates hay when digging dirt_with_grass (thanks to the override above)
 -- useful for digging hay and straw
 -- can be placed as a node
 minetest.register_tool("cottages:pitchfork", {
@@ -59,7 +58,7 @@ minetest.register_tool("cottages:pitchfork", {
 		local meta = minetest.get_meta(pos)
 		meta:set_int( "wear", itemstack:get_wear())
 		meta:set_string("infotext", S("pitchfork (for hay and straw)"))
-		-- the tool has been placed; consume it
+		-- the tool has been placed, consume it
 		return ItemStack("")
 	end,
 })
