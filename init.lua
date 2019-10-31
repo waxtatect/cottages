@@ -52,21 +52,41 @@ end
 --cottages.config_use_mesh_barrel   = false
 --cottages.config_use_mesh_handmill = true
 
+cottages.use_farming_redo = minetest.global_exists("farming") and farming.mod == "redo"
+
 -- set alternate crafting materials and textures where needed
 -- (i.e. in combination with realtest)
-dofile(minetest.get_modpath("cottages").."/adaptions.lua");
+dofile(minetest.get_modpath("cottages").."/adaptions.lua")
 
--- add to this table what you want the handmill to convert;
+-- add to this table what you want the threshing floor to convert
 -- add a stack size if you want a higher yield
-cottages.handmill_product = {};
-cottages.handmill_product[ cottages.craftitem_seed_wheat ] = 'farming:flour 1';
---[[ some examples:
-cottages.handmill_product[ 'default:cobble' ] = 'default:gravel';
-cottages.handmill_product[ 'default:gravel' ] = 'default:sand';
-cottages.handmill_product[ 'default:sand'   ] = 'default:dirt 2';
-cottages.handmill_product[ 'flowers:rose'   ] = 'dye:red 6';
-cottages.handmill_product[ 'default:cactus' ] = 'dye:green 6';
-cottages.handmill_product[ 'default:coal_lump'] = 'dye:black 6';
+cottages.threshing_product = {}
+cottages.threshing_product[cottages.craftitem_grain_wheat] = cottages.craftitem_seed_wheat
+if cottages.use_farming_redo then
+	cottages.threshing_product[cottages.craftitem_grain_barley] = cottages.craftitem_seed_barley
+	cottages.threshing_product[cottages.craftitem_grain_oat] = cottages.craftitem_seed_oat
+	cottages.threshing_product[cottages.craftitem_grain_rice] = cottages.craftitem_seed_rice
+	cottages.threshing_product[cottages.craftitem_grain_rye] = cottages.craftitem_seed_rye
+end
+
+-- add to this table what you want the handmill to convert
+-- add a stack size if you want a higher yield
+cottages.handmill_product = {}
+cottages.handmill_product[ cottages.craftitem_seed_wheat] = 'farming:flour 1'
+if cottages.use_farming_redo then
+	cottages.handmill_product[cottages.craftitem_seed_barley] = 'farming:flour 1'
+	cottages.handmill_product[cottages.craftitem_seed_oat] = 'farming:flour 1'
+	cottages.handmill_product[cottages.craftitem_seed_rice] = 'farming:rice_flour 1'
+	cottages.handmill_product[cottages.craftitem_seed_rye] = 'farming:flour 1'
+end
+
+--[[some examples:
+cottages.handmill_product['default:cobble'] = 'default:gravel'
+cottages.handmill_product['default:gravel'] = 'default:sand'
+cottages.handmill_product['default:sand'] = 'default:dirt 2'
+cottages.handmill_product['flowers:rose'] = 'dye:red 6'
+cottages.handmill_product['default:cactus'] = 'dye:green 6'
+cottages.handmill_product['default:coal_lump'] = 'dye:black 6'
 --]]
 -- process that many inputs per turn
 cottages.handmill_max_per_turn = 20

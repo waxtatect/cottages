@@ -35,6 +35,10 @@ cottages.craftitem_coal_lump    = "default:coal_lump"
 -- used for: red roof (if no homedecor is installed)
 cottages.craftitem_clay_brick   = "default:clay_brick"
 -- used for: treshing floor
+cottages.craftitem_junglewood   = "default:junglewood"
+cottages.craftitem_chest_locked = "default:chest_locked"
+-- used for: storage barrel
+cottages.craftitem_chest        = "default:chest"
 -- used for: hatch, table
 cottages.craftitem_slab_wood    = "stairs:slab_wood"
 
@@ -52,10 +56,31 @@ end
 cottages.texture_chest = {"default_chest_top.png", "default_chest_top.png", "default_chest_side.png",
                 "default_chest_side.png", "default_chest_side.png", "default_chest_front.png"}
 
--- the treshing floor produces wheat seeds
-cottages.craftitem_seed_wheat   = "farming:seed_wheat";
-cottages.texture_wheat_seed = "farming_wheat_seed.png";
-cottages.texture_stick      = "default_stick.png";
+-- the treshing floor and the hand mill produce wheat straw and seed(s)/flour(s) and more using farming redo
+cottages.craftitem_grain_wheat = "farming:wheat"
+cottages.craftitem_seed_wheat = "farming:seed_wheat"
+cottages.texture_seed_wheat = "farming_wheat_seed.png"
+cottages.texture_treshing_floor = "farming_wheat.png"
+cottages.current_texture_treshing_floor = cottages.texture_treshing_floor
+cottages.texture_handmill = "farming_wheat_seed.png"
+cottages.current_texture_handmill = cottages.texture_handmill
+if cottages.use_farming_redo then
+	cottages.craftitem_grain_barley = "farming:barley"
+	cottages.craftitem_grain_oat = "farming:oat"
+	cottages.craftitem_grain_rice = "farming:rice"
+	cottages.craftitem_grain_rye = "farming:rye"
+
+	cottages.craftitem_seed_barley = "farming:seed_barley"
+	cottages.craftitem_seed_oat = "farming:seed_oat"
+	cottages.craftitem_seed_rice = "farming:seed_rice"
+	cottages.craftitem_seed_rye = "farming:seed_rye"
+
+	cottages.texture_seed_barley = "farming_barley_seed.png"
+	cottages.texture_seed_oat = "farming_oat_seed.png"
+	cottages.texture_seed_rice = "farming_rice_seed.png"
+	cottages.texture_seed_rye = "farming_rye_seed.png"
+end
+cottages.texture_stick = "default_stick.png"
 
 -- texture for roofs where the tree bark is the main roof texture
 cottages.textures_roof_wood = "default_tree.png"
