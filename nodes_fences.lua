@@ -3,7 +3,7 @@
 local S = cottages.S
 
 minetest.register_node("cottages:fence_small", {
-		description = S("small fence"),
+		description = S("Small fence"),
 		drawtype = "nodebox",
                 -- top, bottom, side1, side2, inner, outer
 		tiles = {"cottages_minimal_wood.png"},
@@ -30,9 +30,8 @@ minetest.register_node("cottages:fence_small", {
 		is_ground_content = false,
 })
 
-
 minetest.register_node("cottages:fence_corner", {
-		description = S("small fence corner"),
+		description = S("Small fence corner"),
 		drawtype = "nodebox",
                 -- top, bottom, side1, side2, inner, outer
 		tiles = {"cottages_minimal_wood.png"},
@@ -66,9 +65,8 @@ minetest.register_node("cottages:fence_corner", {
 		is_ground_content = false,
 })
 
-
 minetest.register_node("cottages:fence_end", {
-		description = S("small fence end"),
+		description = S("Small fence end"),
 		drawtype = "nodebox",
                 -- top, bottom, side1, side2, inner, outer
 		tiles = {"cottages_minimal_wood.png"},

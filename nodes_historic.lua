@@ -12,7 +12,7 @@ local S = cottages.S
 
 -- can be used to buid real stationary wagons or attached to walls as decoration
 minetest.register_node("cottages:wagon_wheel", {
-        description = S("wagon wheel"),
+	description = S("Wagon wheel"),
 	drawtype = "signlike",
 	tiles = {"cottages_wagonwheel.png"}, -- done by VanessaE!
 	inventory_image = "cottages_wagonwheel.png",
@@ -29,7 +29,7 @@ minetest.register_node("cottages:wagon_wheel", {
 
 -- people didn't use clay for houses they did build with loam
 minetest.register_node("cottages:loam", {
-        description = S("loam"),
+	description = S("Loam"),
 	tiles = {"cottages_loam.png"},
 	groups = {snappy = 2, choppy = 2, oddly_breakable_by_hand = 2},
 	groups = {crumbly = 3},
@@ -59,7 +59,7 @@ end
 -- straw is a common material for places where animals are kept indoors
 -- right now, this block mostly serves as a placeholder
 minetest.register_node("cottages:straw_ground", {
-        description = S("straw ground for animals"),
+	description = S("Straw ground for animals"),
 	tiles = {cottages.straw_texture,"cottages_loam.png","cottages_loam.png","cottages_loam.png","cottages_loam.png","cottages_loam.png"},
 	groups = {snappy = 2, choppy = 2, oddly_breakable_by_hand = 2},
 	groups = {crumbly = 3},
@@ -67,10 +67,9 @@ minetest.register_node("cottages:straw_ground", {
 	is_ground_content = false
 })
 
-
 -- note: these houses look good with a single fence pile as window! the glass pane is the version for 'richer' inhabitants
 minetest.register_node("cottages:glass_pane", {
-		description = S("simple glass pane (centered)"),
+	description = S("Simple glass pane (centered)"),
 	drawtype = "nodebox",
 			-- top, bottom, side1, side2, inner, outer
 	tiles = {"cottages_glass_pane.png"},
@@ -87,10 +86,9 @@ minetest.register_node("cottages:glass_pane", {
 	},
 	is_ground_content = false
 })
-
 
 minetest.register_node("cottages:glass_pane_side", {
-		description = S("simple glass pane"),
+	description = S("Simple glass pane"),
 	drawtype = "nodebox",
 			-- top, bottom, side1, side2, inner, outer
 	tiles = {"cottages_glass_pane.png"},
@@ -107,13 +105,12 @@ minetest.register_node("cottages:glass_pane_side", {
 	},
 	is_ground_content = false
 })
-
 
 ---------------------------------------------------------------------------------------
 -- a very small wooden slab
 ---------------------------------------------------------------------------------------
 minetest.register_node("cottages:wood_flat", {
-		description = S("flat wooden planks"),
+	description = S("Flat wooden planks"),
 	drawtype = "nodebox",
 			-- top, bottom, side1, side2, inner, outer
 	tiles = {"cottages_minimal_wood.png"},
@@ -136,7 +133,7 @@ minetest.register_node("cottages:wood_flat", {
 -- useful for building tents
 ---------------------------------------------------------------------------------------
 minetest.register_node("cottages:wool_tent", {
-		description = S("wool for tents"),
+	description = S("Wool for tents"),
 	drawtype = "nodebox",
 			-- top, bottom, side1, side2, inner, outer
 	tiles = {"cottages_wool.png"},

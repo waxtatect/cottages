@@ -9,7 +9,7 @@ local S = cottages.S
 -- an even simpler from of bed - usually for animals 
 -- it is a nodebox and not wallmounted because that makes it easier to replace beds with straw mats
 minetest.register_node("cottages:straw_mat", {
-        description = S("layer of straw"),
+	description = S("Layer of straw"),
 	drawtype = 'nodebox',
 	tiles = {cottages.straw_texture}, -- done by VanessaE
 	wield_image = cottages.straw_texture,
@@ -39,7 +39,7 @@ minetest.register_node("cottages:straw_mat", {
 -- straw bales are a must for farming environments, if you for some reason do not have the darkage mod installed, this here gets you a straw bale
 minetest.register_node("cottages:straw_bale", {
 	drawtype = "nodebox",
-	description = S("straw bale"),
+	description = S("Straw bale"),
 	tiles = {"cottages_darkage_straw_bale.png"},
 	paramtype = "light",
 	groups = {hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable = 3},
@@ -62,7 +62,7 @@ minetest.register_node("cottages:straw_bale", {
 if(not(minetest.registered_nodes["farming:straw"])) then
    minetest.register_node("cottages:straw", {
 	drawtype = "normal",
-	description = S("straw"),
+	description = S("Straw"),
 	tiles = {cottages.straw_texture},
 	groups = {hay = 3, snappy = 2, oddly_breakable_by_hand = 2, flammable = 3},
 	sounds = cottages.sounds.leaves,
@@ -141,7 +141,7 @@ local cottages_formspec_treshing_floor =
 
 minetest.register_node("cottages:threshing_floor", {
 	drawtype = "nodebox",
-	description = S("threshing floor"),
+	description = S("Threshing floor"),
 	-- TODO: stone also looks pretty well for this
 	tiles = {"cottages_junglewood.png^"..cottages.texture_treshing_floor,"cottages_junglewood.png","cottages_junglewood.png^"..cottages.texture_stick},
 	paramtype = "light",
@@ -432,7 +432,7 @@ local cottages_formspec_handmill =
 	default.get_hotbar_bg(0,4.35)
 
 minetest.register_node("cottages:handmill", {
-	description = S("mill, powered by punching"),
+	description = S("Mill, powered by punching"),
 	drawtype = "mesh",
 	mesh = "cottages_handmill.obj",
 	tiles = {"cottages_stone.png"},

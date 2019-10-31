@@ -88,7 +88,7 @@ minetest.register_node("cottages:bed_head", {
 -- the basic version of a bed - a sleeping mat
 -- to facilitate upgrade path straw mat -> sleeping mat -> bed, this uses a nodebox
 minetest.register_node("cottages:sleeping_mat", {
-        description = S("sleeping mat"),
+	description = S("Sleeping mat"),
 	drawtype = 'nodebox',
 	tiles = {'cottages_sleepingmat.png'}, -- done by VanessaE
 	wield_image = 'cottages_sleepingmat.png',
@@ -122,7 +122,7 @@ minetest.register_node("cottages:sleeping_mat", {
 
 -- this one has a pillow for the head thus, param2 becomes visible to the builder, and mobs may use it as a bed
 minetest.register_node("cottages:sleeping_mat_head", {
-        description = S("sleeping mat with pillow"),
+	description = S("Sleeping mat with pillow"),
 	drawtype = 'nodebox',
 	tiles = {'cottages_sleepingmat.png'}, -- done by VanessaE
 	wield_image = 'cottages_sleepingmat.png',
@@ -154,7 +154,7 @@ minetest.register_node("cottages:sleeping_mat_head", {
 -- furniture possible replacement: 3dforniture:chair
 minetest.register_node("cottages:bench", {
 	drawtype = "nodebox",
-	description = S("simple wooden bench"),
+	description = S("Simple wooden bench"),
 	tiles = {"cottages_minimal_wood.png", "cottages_minimal_wood.png",  "cottages_minimal_wood.png",  "cottages_minimal_wood.png",  "cottages_minimal_wood.png",  "cottages_minimal_wood.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -185,7 +185,7 @@ minetest.register_node("cottages:bench", {
 
 -- a simple table possible replacement: 3dforniture:table
 local cottages_table_def = {
-		description = S("table"),
+	description = S("Table"),
 	drawtype = "nodebox",
 			-- top, bottom, side1, side2, inner, outer
 	tiles = {"cottages_minimal_wood.png"},
@@ -314,7 +314,7 @@ minetest.register_node("cottages:shelf", {
 
 -- so that the smoke from a furnace can get out of a building
 minetest.register_node("cottages:stovepipe", {
-		description = S("stovepipe"),
+	description = S("Stovepipe"),
 	drawtype = "nodebox",
 	tiles = {"cottages_steel_block.png"},
 	paramtype = "light",
@@ -335,10 +335,9 @@ minetest.register_node("cottages:stovepipe", {
 	is_ground_content = false,
 })
 
-
 -- this washing place can be put over a water source (it is open at the bottom)
 minetest.register_node("cottages:washing", {
-		description = S("washing place"),
+	description = S("Washing place"),
 	drawtype = "nodebox",
 	-- top, bottom, side1, side2, inner, outer
 	tiles = {"cottages_clay.png"},

@@ -17,7 +17,7 @@ end
 -- useful for digging hay and straw
 -- can be placed as a node
 minetest.register_tool("cottages:pitchfork", {
-	description = S("pitchfork (dig dirt with grass to get hay, place with right-click)"),
+	description = S("Pitchfork (dig dirt with grass to get hay, place with right-click)"),
 	groups = {},
 	inventory_image = "cottages_pitchfork.png",
 	wield_image = "cottages_pitchfork.png^[transformFYR180",
@@ -57,16 +57,15 @@ minetest.register_tool("cottages:pitchfork", {
 		end
 		local meta = minetest.get_meta(pos)
 		meta:set_int( "wear", itemstack:get_wear())
-		meta:set_string("infotext", S("pitchfork (for hay and straw)"))
+		meta:set_string("infotext", S("Pitchfork (for hay and straw)"))
 		-- the tool has been placed, consume it
 		return ItemStack("")
 	end,
 })
 
-
 -- a ptichfork placed somewhere
 minetest.register_node("cottages:pitchfork_placed", {
-	description = S("pitchfork (for hay and straw)"),
+	description = S("Pitchfork (for hay and straw)"),
 	tiles = {"default_wood.png^[transformR90"}, --default_tree.png"},
 	drawtype = "nodebox",
 	paramtype  = "light",

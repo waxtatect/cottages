@@ -24,7 +24,7 @@ minetest.register_tool("cottages:hammer", {
 	}
 })
 
-local cottages_anvil_formspec =
+local cottages_formspec_anvil =
 	"size[8,8]"..
 	"image[7,2.4;1,1;glooptest_tool_steelhammer.png]"..
 	-- "list[context;sample;0,0.5;1,1;]"..
@@ -91,14 +91,14 @@ minetest.register_node("cottages:anvil", {
      -- inv:set_size("material", 9)
      -- inv:set_size("sample", 1)
 		inv:set_size("hammer", 1)
-		meta:set_string("formspec", cottages_anvil_formspec)
+		meta:set_string("formspec", cottages_formspec_anvil)
 	end,
 
 	after_place_node = function(pos, placer)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
 		meta:set_string("infotext", S("Anvil (owned by @1)", meta:get_string("owner") or ""))
-		meta:set_string("formspec", cottages_anvil_formspec, "label[2.5,-0.5"..S("Owner: @1", meta:get_string('owner') or "").."]")
+		meta:set_string("formspec", cottages_formspec_anvil, "label[2.5,-0.5"..S("Owner: @1", meta:get_string('owner') or "").."]")
 	end,
 
 	can_dig = function(pos, player)
@@ -168,7 +168,7 @@ minetest.register_node("cottages:anvil", {
 			input:is_empty() or
 			input:get_name() == "technic:water_can" or
 			input:get_name() == "technic:lava_can" then
-			meta:set_string("formspec", cottages_anvil_formspec, "label[2.5,-0.5"..S("Owner: @1", meta:get_string('owner') or "").."]")
+			meta:set_string("formspec", cottages_formspec_anvil, "label[2.5,-0.5"..S("Owner: @1", meta:get_string('owner') or "").."]")
 			return
 		end
 
@@ -275,7 +275,8 @@ minetest.register_craft({
 	recipe = {
 		{cottages.craftitem_steel, cottages.craftitem_steel, cottages.craftitem_steel},
 		{''                      , cottages.craftitem_steel, ''                      },
-		{cottages.craftitem_steel, cottages.craftitem_steel, cottages.craftitem_steel}}
+		{cottages.craftitem_steel, cottages.craftitem_steel, cottages.craftitem_steel}
+	}
 })
 
 -- the castle-mod has an anvil as well - with the same recipe. convert the two into each other
@@ -295,5 +296,6 @@ minetest.register_craft({
 	recipe = {
 		{cottages.craftitem_steel},
 		{'cottages:anvil'},
-		{cottages.craftitem_stick}}
+		{cottages.craftitem_stick}
+	}
 })
