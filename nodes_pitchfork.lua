@@ -3,7 +3,7 @@ local S = cottages.S
 -- fast tool for digging nodes with the group "hay"
 -- can also be placed as a node
 
--- the straw node from default and similar nodes can be digged with the pitchfork as well
+-- the straw node from default and similar nodes can be dug with the pitchfork as well
 local add_hay_group = {"farming:straw", "dryplants:reed", "darkage:straw_bale"}
 for i, v in ipairs(add_hay_group) do
 	if( minetest.registered_items[v]) then
@@ -56,7 +56,7 @@ minetest.register_tool("cottages:pitchfork", {
 			return nil
 		end
 		local meta = minetest.get_meta(pos)
-		meta:set_int( "wear", itemstack:get_wear())
+		meta:set_int("wear", itemstack:get_wear())
 		meta:set_string("infotext", S("Pitchfork (for hay and straw)"))
 		-- the tool has been placed, consume it
 		return ItemStack("")
@@ -105,8 +105,8 @@ minetest.register_node("cottages:pitchfork_placed", {
 minetest.register_craft({
         output = 'cottages:pitchfork',
         recipe = {
-                { 'default:stick','default:stick','default:stick' },
-                { '','default:stick', '' },
-                { '','default:stick','' },
+			{'default:stick', 'default:stick', 'default:stick'},
+			{'', 'default:stick', ''},
+			{'', 'default:stick', ''}
         }
 })

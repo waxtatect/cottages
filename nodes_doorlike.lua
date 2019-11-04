@@ -17,7 +17,7 @@ local S = cottages.S
 
 -- propagate shutting/closing of window shutters to window shutters below/above this one
 cottages_window_sutter_operate = function( pos, old_node_state_name, new_node_state_name )
-   
+
    local offsets   = {-1,1,-2,2,-3,3}
    local stop_up   = 0
    local stop_down = 0
@@ -25,18 +25,18 @@ cottages_window_sutter_operate = function( pos, old_node_state_name, new_node_st
    for i,v in ipairs(offsets) do
 
       local node = minetest.get_node_or_nil( {x=pos.x, y=(pos.y+v), z=pos.z } )
-      if( node and node.name and node.name==old_node_state_name 
-        and ( (v > 0 and stop_up   == 0 ) 
+      if( node and node.name and node.name==old_node_state_name
+        and ( (v > 0 and stop_up   == 0 )
            or (v < 0 and stop_down == 0 ))) then
 
          minetest.swap_node({x=pos.x, y=(pos.y+v), z=pos.z }, {name = new_node_state_name, param2 = node.param2})
 
       -- found a diffrent node - no need to search further up
       elseif( v > 0 and stop_up   == 0 ) then
-         stop_up   = 1 
+         stop_up   = 1
 
       elseif( v < 0 and stop_down == 0 ) then
-         stop_down = 1 
+         stop_down = 1
       end
    end
 end
@@ -293,7 +293,7 @@ cottages.register_hatch = function(nodename, description, texture, receipe_item)
 	description = S(description), -- not that there are any other...
 	drawtype = "nodebox",
 			-- top, bottom, side1, side2, inner, outer
-	tiles = { texture }, 
+	tiles = { texture },
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
@@ -311,11 +311,11 @@ cottages.register_hatch = function(nodename, description, texture, receipe_item)
 					{-0.3, -0.55, 0.3, 0.3, -0.45, 0.45},
 
 	-- hinges
-		{-0.45,-0.530, 0.45, -0.15,-0.470, 0.525}, 
-		{ 0.15,-0.530, 0.45,  0.45,-0.470, 0.525}, 
+		{-0.45,-0.530, 0.45, -0.15,-0.470, 0.525},
+		{ 0.15,-0.530, 0.45,  0.45,-0.470, 0.525},
 
 	-- handle
-		{-0.05,-0.60,-0.35, 0.05,-0.40,-0.45}, 
+		{-0.05,-0.60,-0.35, 0.05,-0.40,-0.45},
 			},
 	},
 	selection_box = {

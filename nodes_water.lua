@@ -295,7 +295,7 @@ minetest.register_node("cottages:water_gen", {
 		end
 
 		-- else check if there is a bucket that can be retrieved
-		meta:set_string("bucket","")
+		meta:set_string("bucket", "")
 	end,
 })
 
@@ -304,7 +304,7 @@ minetest.register_craft({
 	output = 'cottages:water_gen',
 	recipe = {
 		{'default:stick', '', ''},
-		{'default:tree', 'bucket:bucket_empty',  'bucket:bucket_empty'},
-		{'default:tree', 'default:tree', 'default:tree'},
+		{'default:tree', 'bucket:bucket_empty', 'bucket:bucket_empty'},
+		{'default:tree', 'default:tree', 'default:tree'}
 	}
 })

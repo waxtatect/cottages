@@ -29,11 +29,11 @@ minetest.register_node("cottages:bed_foot", {
 		fixed = {
 					-- bed
 					{-0.5, 0.0, -0.5, 0.5, 0.3, 0.5},
-					
+
 					-- stützen
 					{-0.5, -0.5, -0.5, -0.4, 0.5, -0.4},
 					{ 0.4,-0.5, -0.5, 0.5,  0.5, -0.4},
-                               
+
                                         -- Querstrebe
 					{-0.4,  0.3, -0.5, 0.4, 0.5, -0.4}
 				}
@@ -64,7 +64,7 @@ minetest.register_node("cottages:bed_head", {
 		fixed = {
 					-- bed
 					{-0.5, 0.0, -0.5, 0.5, 0.3, 0.5},
-					
+
 					-- stützen
 					{-0.5,-0.5, 0.4, -0.4, 0.5, 0.5},
 					{0.4,-0.5, 0.4,  0.5, 0.5, 0.5},
@@ -165,7 +165,7 @@ minetest.register_node("cottages:bench", {
 		fixed = {
 					-- sitting area
 					{-0.5, -0.15, 0.1,  0.5,  -0.05, 0.5},
-					
+
 					-- stützen
 					{-0.4, -0.5,  0.2, -0.3, -0.15, 0.4},
 					{0.3, -0.5,  0.2,  0.4, -0.15, 0.4},
@@ -227,7 +227,7 @@ end
 
 minetest.register_node("cottages:table", cottages_table_def)
 
--- looks better than two slabs impersonating a shelf also more 3d than a bookshelf 
+-- looks better than two slabs impersonating a shelf also more 3d than a bookshelf
 -- the infotext shows if it's empty or not
 minetest.register_node("cottages:shelf", {
 	description = S("Protected open storage shelf"),
@@ -277,8 +277,8 @@ minetest.register_node("cottages:shelf", {
 		local  meta = minetest.get_meta(pos);
 		local  inv = meta:get_inventory();
 		return inv:is_empty("main");
-	end,	
-	
+	end,
+
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
 			return 0
@@ -297,7 +297,7 @@ minetest.register_node("cottages:shelf", {
 		end
 		return stack:get_count()
 	end,
-									  
+
 	on_metadata_inventory_put  = function(pos, listname, index, stack, player)
 		local  meta = minetest.get_meta(pos)
 		meta:set_string('infotext', S('Protected open storage shelf (in use)'))
@@ -401,7 +401,7 @@ minetest.register_node("cottages:storage_barrel", {
 		local inv = meta:get_inventory();
 		inv:set_size("main", 20);
 	end,
-	
+
 	on_place = minetest.rotate_node,
 
 	can_dig = function(pos, player)
@@ -431,7 +431,7 @@ minetest.register_node("cottages:storage_barrel", {
 		end
 		return stack:get_count()
 	end,
-						
+
 	on_metadata_inventory_put  = function(pos, listname, index, stack, player)
 		local  meta = minetest.get_meta(pos);
 		meta:set_string('infotext', S('Protected storage barrel (in use)'));
@@ -617,7 +617,7 @@ cottages.sleep_in_bed = function(pos, node, clicker, itemstack, pointed_thing)
 			p.x = p.x+0.5
 		end
 	end
-	
+
 	if(default.player_attached[pname] and animation.animation=="sit") then
 		-- just changing the animation...
 		if(allow_sleep==true) then

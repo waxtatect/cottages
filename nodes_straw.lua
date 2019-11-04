@@ -6,7 +6,7 @@
 
 local S = cottages.S
 
--- an even simpler from of bed - usually for animals 
+-- an even simpler from of bed - usually for animals
 -- it is a nodebox and not wallmounted because that makes it easier to replace beds with straw mats
 minetest.register_node("cottages:straw_mat", {
 	description = S("Layer of straw"),
@@ -73,48 +73,34 @@ else
 	minetest.register_alias("cottages:straw", "farming:straw")
 end
 
-local function get_itemdef_field(nodename, fieldname)
-	if not minetest.registered_craftitems[nodename] then
-		return nil
+local function jump_line(desc, n)
+	local length, j, s, list, str = 6, 1, "", {}, ""
+	if n < length then str = table.concat(desc, ", ")
+	else
+		for i, v in ipairs(desc) do
+			if i == j * length and i < n then
+				list[i] = ("%s,\n"):format(v); j = j + 1
+			elseif i == n then list[i] = ("%s%s"):format(s, v)
+			else list[i] = ("%s%s, "):format(s, v) end
+			if i == (j - 1) * length then s = " " else s = "" end
+		end
+		str = table.concat(list)
 	end
-	return minetest.registered_craftitems[nodename][fieldname]
+	return str
 end
-local function get_nodedef_field(nodename, fieldname)
-	if not minetest.registered_nodes[nodename] then
-		return nil
+
+local function looking_for_a_texture(name, fieldname, item, stop)
+	local texture = cottages.get_def_field(item, name, fieldname)
+	if not stop and texture == nil then
+		texture = looking_for_a_texture(name, "inventory_image", "craftitem", true)
 	end
-	return minetest.registered_nodes[nodename][fieldname]
-end
-local farming_description = {grain = {[cottages.craftitem_grain_wheat] = get_itemdef_field(cottages.craftitem_grain_wheat, "description")}, seed = {}}
-farming_description.seed[cottages.craftitem_seed_wheat] = get_nodedef_field(cottages.craftitem_seed_wheat, "description")
-
-if cottages.use_farming_redo then
-	farming_description.grain[cottages.craftitem_grain_barley] = get_itemdef_field(cottages.craftitem_grain_barley, "description")
-	farming_description.grain[cottages.craftitem_grain_oat] = get_itemdef_field(cottages.craftitem_grain_oat, "description")
-	farming_description.grain[cottages.craftitem_grain_rice] = get_itemdef_field(cottages.craftitem_grain_rice, "description")
-	farming_description.grain[cottages.craftitem_grain_rye] = get_itemdef_field(cottages.craftitem_grain_rye, "description")
-
-	farming_description.seed[cottages.craftitem_seed_barley] = get_nodedef_field(cottages.craftitem_seed_barley, "description")
-	farming_description.seed[cottages.craftitem_seed_oat] = get_nodedef_field(cottages.craftitem_seed_oat, "description")
-	farming_description.seed[cottages.craftitem_seed_rice] = get_nodedef_field(cottages.craftitem_seed_rice, "description")
-	farming_description.seed[cottages.craftitem_seed_rye] = get_nodedef_field(cottages.craftitem_seed_rye, "description")	
+	if type(texture) == "table" then texture = texture[1] end
+	return texture or cottages.texture_seed_wheat
 end
 
-local grain_string = ""
-local grain_list, i = {}, 1
-if cottages.use_farming_redo then
-	for _, description in pairs(farming_description.grain) do
-		grain_list[i], i = description, i + 1
-	end
-	grain_string = table.concat(grain_list, ", ")
-	grain_string = grain_string:sub(1, #grain_string - 2)
-else 
-	grain_string = farming_description.grain[cottages.craftitem_grain_wheat]
-end
-local supported_grain = S("Supported grain :\n @1", grain_string)
-local supported_seed = S("Supported seed :\n @1", grain_string)
-
-local cottages_formspec_treshing_floor =
+local strname = jump_line(cottages.threshing.desc, #cottages.threshing.desc)
+local supported_grain = S("Supported grain :\n @1", strname)
+local cottages_formspec_threshing_floor =
 	"size[8,8.5]"..
 	"image[3.5,2.5;1,1;"..cottages.texture_stick.."]"..
 	"button_exit[3.5,0;1.5,0.5;public;"..S("Public?").."]"..
@@ -143,7 +129,7 @@ minetest.register_node("cottages:threshing_floor", {
 	drawtype = "nodebox",
 	description = S("Threshing floor"),
 	-- TODO: stone also looks pretty well for this
-	tiles = {"cottages_junglewood.png^"..cottages.texture_treshing_floor,"cottages_junglewood.png","cottages_junglewood.png^"..cottages.texture_stick},
+	tiles = {"cottages_junglewood.png^"..cottages.texture_threshing_floor,"cottages_junglewood.png","cottages_junglewood.png^"..cottages.texture_stick},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	-- can be dug with an axe and a pick
@@ -170,7 +156,7 @@ minetest.register_node("cottages:threshing_floor", {
 		inv:set_size("harvest", 2)
 		inv:set_size("straw", 4)
 		inv:set_size("seeds", 4)
-		meta:set_string("formspec", cottages_formspec_treshing_floor)
+		meta:set_string("formspec", cottages_formspec_threshing_floor)
 		meta:set_string("public", "public")
 	end,
 
@@ -179,8 +165,8 @@ minetest.register_node("cottages:threshing_floor", {
 		meta:set_string("owner", placer:get_player_name() or "")
 		meta:set_string("infotext", S("Private threshing floor (owned by @1)", meta:get_string("owner") or ""))
 		meta:set_string("formspec",
-		cottages_formspec_treshing_floor..
-		"image[0,1;1,1;"..cottages.texture_treshing_floor.."]"..
+		cottages_formspec_threshing_floor..
+		"image[0,1;1,1;"..cottages.texture_threshing_floor.."]"..
 		"label[1.58,0;"..S("Owner: @1", meta:get_string("owner") or "").."]")
 		meta:set_string("public", "private")
 	end,
@@ -216,8 +202,8 @@ minetest.register_node("cottages:threshing_floor", {
 		local meta = minetest.get_meta(pos)
 		-- only accept input the threshing floor can use/process
 		if(listname=='straw'
-		    or listname=='seeds' 
-		    or (listname=='harvest' and stack and not(cottages.threshing_product[stack:get_name()]))) then
+		    or listname=='seeds'
+		    or (listname=='harvest' and stack and not(cottages.threshing.product[stack:get_name()]))) then
 			return 0
 		end
 
@@ -235,7 +221,7 @@ minetest.register_node("cottages:threshing_floor", {
 		return stack:get_count()
 	end,
 
-	on_punch = function(pos, node, puncher)	
+	on_punch = function(pos, node, puncher)
 		if(not(pos) or not(node) or not(puncher)) then
 			return
 		end
@@ -248,7 +234,7 @@ minetest.register_node("cottages:threshing_floor", {
 		    or not(minetest.registered_items[wielded:get_name()].groups.stick)) then
  			return
 		end
-		local name = puncher:get_player_name()
+		local pname = puncher:get_player_name()
 
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
@@ -258,27 +244,30 @@ minetest.register_node("cottages:threshing_floor", {
 		local stack1 = inv:get_stack('harvest', 1)
 		local stack2 = inv:get_stack('harvest', 2)
 
-		if((stack1:is_empty() and stack2:is_empty())
-			or(not(stack1:is_empty()) and not(cottages.threshing_product[stack1:get_name()]))
-			or(not(stack2:is_empty()) and not(cottages.threshing_product[stack2:get_name()]))) then
+		local name1 = stack1:get_name()
+		local name2 = stack2:get_name()
 
-			-- minetest.chat_send_player(name, 'One of the input slots contains something else than grain, or there is no grain at all.')
+		if((stack1:is_empty() and stack2:is_empty())
+			or(not(stack1:is_empty()) and not(cottages.threshing.product[name1]))
+			or(not(stack2:is_empty()) and not(cottages.threshing.product[name2]))) then
+
+			-- minetest.chat_send_player(pname, 'One of the input slots contains something else than grain, or there is no grain at all.')
 			-- update the formspec
 			meta:set_string("formspec",
-				cottages_formspec_treshing_floor..
-				"image[0,1;1,1;"..cottages.current_texture_treshing_floor.."]"..
+				cottages_formspec_threshing_floor..
+				"image[0,1;1,1;"..cottages.current_texture_threshing_floor.."]"..
 				"label[1.58,0;"..S("Owner: @1", meta:get_string("owner") or "").."]")
 			return
 		end
 
-		if not(stack1:is_empty()) and not(stack2:is_empty())
-			and stack1:get_name() ~= stack2:get_name() then
+		if(not(stack1:is_empty()) and not(stack2:is_empty()) and name1 ~= name2) then
+			minetest.chat_send_player(pname, S("Choose one type of grain: @1 or @2",
+				cottages.threshing.description[name1] or "", cottages.threshing.description[name2] or ""))
 
-			minetest.chat_send_player(name, S("Choose one type of grain: @1 or @2", farming_description.grain[stack1:get_name()], farming_description.grain[stack2:get_name()]))
 			-- update the formspec
 			meta:set_string("formspec",
-				cottages_formspec_treshing_floor..
-				"image[0,1;1,1;"..cottages.current_texture_treshing_floor.."]"..
+				cottages_formspec_threshing_floor..
+				"image[0,1;1,1;"..cottages.current_texture_threshing_floor.."]"..
 				"label[1.58,0;"..S("Owner: @1", meta:get_string("owner") or "").."]")
 			return
 		end
@@ -295,25 +284,35 @@ minetest.register_node("cottages:threshing_floor", {
 
 		local stack = stack1
 		if stack:get_count() <= 0 then stack = stack2 end
-		local product = stack:get_name():match("^farming:(%l+)") or "wheat"
+		local name = stack:get_name()
 
-		local texture_grain = "farming_"..product..".png"
-		if cottages.current_texture_treshing_floor ~= texture_grain then
-			cottages.current_texture_treshing_floor = texture_grain
+		local texture_grain, texture_seed = "", ""
+		if name:find("^farming:") then
+			local product = name:gsub("farming:", "")
+			texture_grain = "farming_"..product..".png"
+			texture_seed = cottages["texture_seed_"..product]
+		else
+			texture_grain = looking_for_a_texture(name, "tiles")
+			texture_seed = looking_for_a_texture(cottages.threshing.product[name]:gsub(" %d+$", ""), "tiles")
+		end
+
+		if cottages.current_texture_threshing_floor ~= texture_grain then
+			cottages.current_texture_threshing_floor = texture_grain
 			meta:set_string("formspec",
-				cottages_formspec_treshing_floor..
+				cottages_formspec_threshing_floor..
 				"image[0,1;1,1;"..texture_grain.."]"..
 				"label[1.58,0;"..S("Owner: @1", meta:get_string("owner") or "").."]")
 		end
 
 		local overlay1 = "^"..texture_grain
 		local overlay2 = "^"..cottages.straw_texture
-		local overlay3 = "^"..cottages["texture_seed_"..product]
+		local overlay3 = "^"..texture_seed
 
-		local product_stack = ItemStack(cottages.threshing_product[stack:get_name()])
+		local product_stack = ItemStack(cottages.threshing.product[name])
 		-- this can be enlarged by a multiplicator if desired
 		local anz_straw = anz
 		local anz_seeds = anz
+		-- items that produce more
 		if(product_stack:get_count() > 1) then
 			anz_seeds = anz * product_stack:get_count()
 		end
@@ -325,16 +324,16 @@ minetest.register_node("cottages:threshing_floor", {
 			inv:add_item("straw", 'cottages:straw_mat '..tostring(anz_straw))
 			inv:add_item("seeds", product_stack:get_name()..' '..tostring(anz_seeds))
 			-- consume the grain
-			inv:remove_item("harvest", stack:get_name()..' '..tostring(anz))
+			inv:remove_item("harvest", name..' '..tostring(anz))
 
 			local anz_left = found - anz
 			if(anz_left > 0) then
-				-- minetest.chat_send_player(name, S('You have threshed @1 grains (@2 are left).', anz, anz_left))
+				-- minetest.chat_send_player(pname, S('You have threshed @1 grains (@2 are left).', anz, anz_left))
 			else
-				-- minetest.chat_send_player(name, S('You have threshed the last @1 grain.', anz))
+				-- minetest.chat_send_player(pname, S('You have threshed the last @1 grain.', anz))
 				overlay1 = ""
 			end
-		end
+		else return end
 
 		local hud0 = puncher:hud_add({
 			hud_elem_type = "image",
@@ -372,7 +371,7 @@ minetest.register_node("cottages:threshing_floor", {
 			number = 0x00CC00,
 			alignment = {x = 0, y = 0},
 			scale = {x = 100, y = 100}, -- bounding rectangle of the text
-			position = {x = 0.4, y = 0.5},
+			position = {x = 0.4, y = 0.5}
 		})
 		if(not(anz_straw)) then
 			anz_straw = "0"
@@ -386,7 +385,7 @@ minetest.register_node("cottages:threshing_floor", {
 			number = 0x00CC00,
 			alignment = {x = 0, y = 0},
 			scale = {x = 100, y = 100}, -- bounding rectangle of the text
-			position = {x = 0.6, y = 0.35},
+			position = {x = 0.6, y = 0.35}
 		})
 		local hud6 = puncher:hud_add({
 			hud_elem_type = "text",
@@ -394,7 +393,7 @@ minetest.register_node("cottages:threshing_floor", {
 			number = 0x00CC00,
 			alignment = {x = 0, y = 0},
 			scale = {x = 100, y = 100}, -- bounding rectangle of the text
-			position = {x = 0.6, y = 0.65},
+			position = {x = 0.6, y = 0.65}
 		})
 
 		minetest.after(2, function()
@@ -411,6 +410,8 @@ minetest.register_node("cottages:threshing_floor", {
 	end,
 })
 
+strname = jump_line(cottages.handmill.desc, #cottages.handmill.desc)
+local supported_seed = S("Supported seed :\n @1", strname)
 local cottages_formspec_handmill =
 	"size[8,8.5]"..
 	"button_exit[6,0;1.5,0.5;public;"..S("Public?").."]"..
@@ -483,7 +484,7 @@ minetest.register_node("cottages:handmill", {
 		if(not(inv:is_empty("flour"))
 		  or not(inv:is_empty("seeds"))
 		  or not(player)
-		  or (owner and owner ~= ''  and player:get_player_name() ~= owner)) then
+		  or (owner and owner ~= '' and player:get_player_name() ~= owner)) then
 		   return false
 		end
 		return true
@@ -499,9 +500,9 @@ minetest.register_node("cottages:handmill", {
 
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
-		-- only accept input the threshing floor can use/process
+		-- only accept input the handmill floor can use/process
 		if(listname=='flour'
-		    or (listname=='seeds' and stack and not(cottages.handmill_product[stack:get_name()]))) then
+		    or (listname=='seeds' and stack and not(cottages.handmill.product[stack:get_name()]))) then
 			return 0
 		end
 
@@ -525,20 +526,20 @@ minetest.register_node("cottages:handmill", {
 		if(not(pos) or not(node) or not(puncher)) then
 			return
 		end
-		local name = puncher:get_player_name()
+		local pname = puncher:get_player_name()
 
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 
 		local input = inv:get_list('seeds')
 		local stack1 = inv:get_stack('seeds', 1)
+		local name1 = stack1:get_name()
 
 		if((stack1:is_empty())
-			or(not(stack1:is_empty())
-			     and not(cottages.handmill_product[stack1:get_name()]))) then
+			or(not(stack1:is_empty()) and not(cottages.handmill.product[name1]))) then
 
 			if not(stack1:is_empty()) then
-				minetest.chat_send_player(name,"Nothing happens...")
+				minetest.chat_send_player(pname, "Nothing happens...")
 			end
 			-- update the formspec
 			meta:set_string("formspec",
@@ -558,8 +559,14 @@ minetest.register_node("cottages:handmill", {
 			anz = found
 		end
 
-		local product = stack1:get_name():match("^farming:seed_(%l+)") or "wheat"
-		local texture_grain = "farming_"..product.."_seed.png"
+		local texture_grain = ""
+		if name1:find("^farming:seed_") then
+			local grain = name1:gsub("farming:seed_", "")
+			texture_grain = "farming_"..grain.."_seed.png"
+		else
+			texture_grain = looking_for_a_texture(name1, "tiles")
+		end
+
 		if cottages.current_texture_handmill ~= texture_grain then
 			cottages.current_texture_handmill = texture_grain
 			meta:set_string("formspec",
@@ -568,7 +575,7 @@ minetest.register_node("cottages:handmill", {
 				"label[2.5,0;"..S("Owner: @1", meta:get_string("owner") or "").."]")
 		end
 
-		local product_stack = ItemStack(cottages.handmill_product[stack1:get_name()])
+		local product_stack = ItemStack(cottages.handmill.product[name1])
 		local anz_result = anz
 		-- items that produce more
 		if(product_stack:get_count()> 1) then
@@ -577,13 +584,13 @@ minetest.register_node("cottages:handmill", {
 
 		if(inv:room_for_item('flour', product_stack:get_name()..' '..tostring(anz_result))) then
 			inv:add_item('flour', product_stack:get_name()..' '..tostring(anz_result))
-			inv:remove_item('seeds', stack1:get_name()..' '..tostring(anz))
+			inv:remove_item('seeds', name1..' '..tostring(anz))
 
 			local anz_left = found - anz
 			if(anz_left > 0) then
-				minetest.chat_send_player(name, S('You have ground a @1 (@2 are left).', farming_description.seed[stack1:get_name()], anz_left))
+				minetest.chat_send_player(pname, S('You have ground a @1 (@2 are left).', cottages.handmill.description[stack1:get_name()] or "", anz_left))
 			else
-				minetest.chat_send_player(name, S('You have ground the last @1.', farming_description.seed[stack1:get_name()]))
+				minetest.chat_send_player(pname, S('You have ground the last @1.', cottages.handmill.description[stack1:get_name()] or ""))
 			end
 
 			-- if the version of MT is recent enough, rotate the mill a bit
@@ -606,8 +613,8 @@ minetest.register_node("cottages:handmill", {
 minetest.register_craft({
 	output = "cottages:straw_mat 6",
 	recipe = {
-		{cottages.craftitem_stone, ""             , ""},
-		{"farming:wheat"         , "farming:wheat", "farming:wheat",}
+		{cottages.craftitem_stone, "", ""},
+		{cottages.craftitem_grain_wheat, cottages.craftitem_grain_wheat, cottages.craftitem_grain_wheat}
 	},
 	replacements = {{cottages.craftitem_stone, cottages.craftitem_seed_wheat.." 3"}}
 })

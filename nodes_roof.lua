@@ -206,7 +206,7 @@ minetest.register_node("cottages:reet", {
 
 minetest.register_craft({
 	output  = "cottages:reet",
-	recipe = { 
+	recipe = {
 		{cottages.craftitem_papyrus,cottages.craftitem_papyrus},
 		{cottages.craftitem_papyrus,cottages.craftitem_papyrus}
 	}

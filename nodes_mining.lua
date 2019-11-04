@@ -3,7 +3,7 @@ local S = cottages.S
 ---------------------------------------------------------------------------------------
 -- a rope that is of use to the mines
 ---------------------------------------------------------------------------------------
--- the rope can only be digged if there is no further rope above it
+-- the rope can only be dug if there is no further rope above it
 -- Note: This rope also counts as a rail node thus, carts can move through it
 minetest.register_node("cottages:rope", {
 	description = S("Rope for climbing"),
@@ -31,7 +31,7 @@ minetest.register_node("cottages:rope", {
 minetest.register_craft({
 	output = "cottages:rope",
 	recipe = {
-		{"farming:cotton","farming:cotton","farming:cotton"}
+		{"farming:cotton", "farming:cotton", "farming:cotton"}
 	}
 })
 
@@ -58,7 +58,5 @@ minetest.register_node("cottages:ladder_with_rope_and_rail", {
 
 minetest.register_craft({
 	output = "cottages:ladder_with_rope_and_rail 3",
-	recipe = {
-		{"default:ladder","cottages:rope", "default:rail"}
-        }
+	recipe = {{"default:ladder", "cottages:rope", "default:rail"}}
 })

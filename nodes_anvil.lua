@@ -2,7 +2,7 @@
 -- simple anvil that can be used to repair tools
 ---------------------------------------------------------------------------------------
 -- * can be used to repair tools
--- * the hammer gets dammaged a bit at each repair step
+-- * the hammer gets damaged a bit at each repair step
 ---------------------------------------------------------------------------------------
 -- License of the hammer picture: CC-by-SA, done by GloopMaster, source:
 --   https://github.com/GloopMaster/glooptest/blob/master/glooptest/textures/glooptest_tool_steelhammer.png
@@ -19,7 +19,8 @@ minetest.register_tool("cottages:hammer", {
 		max_drop_level = 1,
 		groupcaps = {
 			-- about equal to a stone pick (it's not intended as a tool)
-			cracky = {times = {[2] = 2.00, [3] = 1.20}, uses = 30, maxlevel = 1}},
+			cracky = {times = {[2] = 2.00, [3] = 1.20}, uses = 30, maxlevel = 1}
+		},
 		damage_groups = {fleshy = 6}
 	}
 })
@@ -32,12 +33,12 @@ local cottages_formspec_anvil =
 	-- "list[context;material;5,0;3,3;]"..
 	"list[context;hammer;5,2.4;1,1;]"..
 	-- "label[0,0;Sample:]"..
-	-- "label[0.0,1;(Recipe)]"..
+	-- "label[0,1;(Recipe)]"..
 	"label[2.5,0.7;"..S("Workpiece:").."]"..
 	-- "label[6,-0.5;Materials:]"..
-	"label[6,2.1;"..S("Optional").."]"..
-	"label[6,2.4;"..S("storage for").."]"..
-	"label[6,2.7;"..S("your hammer").."]"..
+	"label[6,2.3;"..S("Optional").."]"..
+	"label[6,2.6;"..S("storage for").."]"..
+	"label[6,2.9;"..S("your hammer").."]"..
 	"label[0,0;"..S("Anvil").."]"..
 	"label[0,2.75;"..S("Punch anvil with hammer to").."]"..
 	"label[0,3.05;"..S("repair tool in workpiece-slot.").."]"..
@@ -98,7 +99,7 @@ minetest.register_node("cottages:anvil", {
 		local meta = minetest.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
 		meta:set_string("infotext", S("Anvil (owned by @1)", meta:get_string("owner") or ""))
-		meta:set_string("formspec", cottages_formspec_anvil, "label[2.5,-0.5"..S("Owner: @1", meta:get_string('owner') or "").."]")
+		meta:set_string("formspec", cottages_formspec_anvil) -- .."label[2.5,-0.5;"..S("Owner: @1", meta:get_string('owner') or "").."]")
 	end,
 
 	can_dig = function(pos, player)
@@ -117,7 +118,7 @@ minetest.register_node("cottages:anvil", {
 
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta = minetest.get_meta(pos)
-		if player and player:get_player_name() ~= meta:get_string('owner') and from_list~="input" then
+		if player and player:get_player_name() ~= meta:get_string('owner') and from_list ~= "input" then
 			return 0
 		end
 		return count
@@ -168,7 +169,7 @@ minetest.register_node("cottages:anvil", {
 			input:is_empty() or
 			input:get_name() == "technic:water_can" or
 			input:get_name() == "technic:lava_can" then
-			meta:set_string("formspec", cottages_formspec_anvil, "label[2.5,-0.5"..S("Owner: @1", meta:get_string('owner') or "").."]")
+			meta:set_string("formspec", cottages_formspec_anvil) -- .."label[2.5,-0.5;"..S("Owner: @1", meta:get_string('owner') or "").."]")
 			return
 		end
 
@@ -232,7 +233,7 @@ minetest.register_node("cottages:anvil", {
 			return
 		else
 			pos.y = pos.y + 7/16
-			minetest.sound_play({name = "anvil_clang"}, {pos = pos})
+			minetest.sound_play({name = "cottages_anvil_clang"}, {pos = pos})
 			minetest.add_particlespawner({
 				amount = 10,
 				time = 0.1,

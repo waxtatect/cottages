@@ -1,7 +1,7 @@
 local S = cottages.S
 
 --- if no owner is set, all players may use the node, else only the owner
-cottages.player_can_use = function( meta, player )
+cottages.player_can_use = function(meta, player)
 	if( not( player) or not( meta )) then
 		return false
 	end
@@ -36,5 +36,19 @@ cottages.switch_public = function(pos, formname, fields, sender, name_of_the_thi
 				S("Your "..name_of_the_thing.." can only be used by yourself."))
 		end
 		return true
+	end
+end
+
+cottages.get_def_field = function(type, name, fieldname)
+	if type == "craftitem" then
+		if not minetest.registered_craftitems[name] then
+			return nil
+		end
+		return minetest.registered_craftitems[name][fieldname]
+	else
+		if not minetest.registered_nodes[name] then
+			return nil
+		end
+		return minetest.registered_nodes[name][fieldname]
 	end
 end

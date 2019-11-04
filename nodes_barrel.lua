@@ -15,7 +15,7 @@
 
 -- pipes: table with the following entries for each pipe-part:
 --    f: radius factor, if 1, it will have a radius of half a nodebox and fill the entire nodebox
---    h1, h2: height at witch the nodebox shall start and, end usually -0.5 and 0.5 for a full nodebox
+--    h1, h2: height at witch the nodebox shall start and end, usually -0.5 and 0.5 for a full nodebox
 --    b: make a horizontal part/shelf
 -- horizontal: if 1, then x and y coordinates will be swapped
 
@@ -46,10 +46,10 @@ barrel.prepare_formspec = function(fill, contents)
 		label = contents
 		item = liquids[contents].bucket
 	end
-	if fill then 
+	if fill then
 		percent = 100 * fill / barrel_max
 	end
-	
+
 	local formspec =
 		"size[8,9]"..
 		"image[2.6,2;2,3;default_wood.png^[lowpart:"..
@@ -79,7 +79,7 @@ barrel.on_construct = function(pos)
 
 	local inv = meta:get_inventory()
 	inv:set_size("input", 1)  -- to fill in new liquid
-	inv:set_size("output", 1)  -- to extract liquid 
+	inv:set_size("output", 1)  -- to extract liquid
 
 	meta:set_string('formspec', barrel.prepare_formspec())
 	meta:set_string('infotext', S("Empty barrel"))
@@ -123,7 +123,7 @@ barrel.allow_metadata_inventory_put = function(pos, listname, index, stack, play
 				break
 			end
 		end
-							
+
 		if not ltype then
 			return 0
 		end
@@ -169,7 +169,7 @@ barrel.on_metadata_inventory_put = function(pos, listname, index, stack, player)
 				local level = meta:get_int("liquid_level") + 1
 				meta:set_int("liquid_level", level)
 				meta:set_string("liquid_type", l)
-				
+
 				meta:set_string('formspec', barrel.prepare_formspec(level, l))
 				if level == 1 then
 					minetest.swap_node(pos, {name = node.name:gsub("_open$",""), param2 = node.param2})
@@ -182,7 +182,7 @@ barrel.on_metadata_inventory_put = function(pos, listname, index, stack, player)
 
 	if listname == "output" then
 		local lt = meta:get_string("liquid_type")
-		
+
 		inv:set_stack("output", 1, {name = liquids[lt].bucket})
 		local level = meta:get_int("liquid_level") - 1
 		if level == 0 then
@@ -286,7 +286,7 @@ minetest.register_node("cottages:barrel_lying_open", {
 	on_metadata_inventory_put = barrel.on_metadata_inventory_put,
 	is_ground_content = false
 })
-    
+
 -- let's hope "tub" is the correct english word for "bottich"
 minetest.register_node("cottages:tub", {
 	description = S("Tub"),

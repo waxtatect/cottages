@@ -3,8 +3,7 @@ local S = cottages.S
 -- contains hay_mat, hay and hay bale
 -- (gives the pitchfork some work)
 
-
--- If default:dirt_with_grass is digged while wielding a pitchfork, it will
+-- If default:dirt_with_grass is dug while wielding a pitchfork, it will
 -- turn into dirt and get some hay placed above it.
 -- The hay will disappear (decay) after a couple of minutes.
 if(minetest.registered_items["default:dirt_with_grass"]
@@ -116,9 +115,7 @@ minetest.register_node("cottages:hay_bale", {
 --
 minetest.register_craft({
 	output = "cottages:hay_mat 9",
-	recipe = {
-		{"cottages:hay"},
-	},
+	recipe = {{"cottages:hay"}}
 })
 
 minetest.register_craft({
@@ -126,16 +123,16 @@ minetest.register_craft({
 	recipe = {
 		{"cottages:hay_mat", "cottages:hay_mat", "cottages:hay_mat"},
 		{"cottages:hay_mat", "cottages:hay_mat", "cottages:hay_mat"},
-		{"cottages:hay_mat", "cottages:hay_mat", "cottages:hay_mat"},
-	},
+		{"cottages:hay_mat", "cottages:hay_mat", "cottages:hay_mat"}
+	}
 })
 
 minetest.register_craft({
 	output = "cottages:hay",
-	recipe = {{"cottages:hay_bale"}},
+	recipe = {{"cottages:hay_bale"}}
 })
 
 minetest.register_craft({
 	output = "cottages:hay_bale",
-	recipe = {{"cottages:hay"}},
+	recipe = {{"cottages:hay"}}
 })

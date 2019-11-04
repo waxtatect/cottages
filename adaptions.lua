@@ -5,9 +5,9 @@
 cottages.craftitem_steel = "default:steel_ingot"
 -- used for: hammer, wood+steel hatch, fence gate, bed, table, bench, shelf,
 --           washing place, wagon wheel, glass pane, flat wood, handmill,
---           operating the treshing floor. 
+--           operating the threshing floor.
 cottages.craftitem_stick = "group:stick"
--- used for: treshing floor, handmill, slate roof, vertical slate
+-- used for: threshing floor, handmill, slate roof, vertical slate
 cottages.craftitem_stone = "default:stone"
 -- used for: window shutter, half door, half door inverted, fence gate,
 --           bed, bench, shelf, roof connector, vertical slate
@@ -34,7 +34,7 @@ cottages.craftitem_papyrus      = "default:papyrus"
 cottages.craftitem_coal_lump    = "default:coal_lump"
 -- used for: red roof (if no homedecor is installed)
 cottages.craftitem_clay_brick   = "default:clay_brick"
--- used for: treshing floor
+-- used for: threshing floor
 cottages.craftitem_junglewood   = "default:junglewood"
 cottages.craftitem_chest_locked = "default:chest_locked"
 -- used for: storage barrel
@@ -56,12 +56,12 @@ end
 cottages.texture_chest = {"default_chest_top.png", "default_chest_top.png", "default_chest_side.png",
                 "default_chest_side.png", "default_chest_side.png", "default_chest_front.png"}
 
--- the treshing floor and the hand mill produce wheat straw and seed(s)/flour(s) and more using farming redo
+-- the threshing floor and the hand mill produce wheat straw and seed(s)/flour(s) and more using farming redo
 cottages.craftitem_grain_wheat = "farming:wheat"
 cottages.craftitem_seed_wheat = "farming:seed_wheat"
 cottages.texture_seed_wheat = "farming_wheat_seed.png"
-cottages.texture_treshing_floor = "farming_wheat.png"
-cottages.current_texture_treshing_floor = cottages.texture_treshing_floor
+cottages.texture_threshing_floor = "farming_wheat.png"
+cottages.current_texture_threshing_floor = cottages.texture_threshing_floor
 cottages.texture_handmill = "farming_wheat_seed.png"
 cottages.current_texture_handmill = cottages.texture_handmill
 if cottages.use_farming_redo then

@@ -15,18 +15,9 @@ local S = cottages.S
 -- * flat: each node is a full node, junction, t-junction and corner are included
 -- * nodebox: like flat - except that each node has a nodebox that fits to that road node
 -- * mesh: like nodebox - except that it uses a nice roundish model
-local cottages_feldweg_mode = minetest.settings:get("cottages_feldweg_mode")
-if(     cottages_feldweg_mode ~= "mesh"
-    and cottages_feldweg_mode ~= "flat"
-    and cottages_feldweg_mode ~= "nodebox"
-    and cottages_feldweg_mode ~= "flat") then
-	cottages_feldweg_mode = "mesh"
-    -- add the setting to the minetest.conf so that the player can set it there
-    minetest.settings:set("cottages_feldweg_mode", "mesh")
-end
+local cottages_feldweg_mode = minetest.settings:get("cottages_feldweg_mode") or "mesh"
 
 local function register_recipes(include_end)
-	
 	minetest.register_craft({
 		output = "cottages:feldweg_crossing 5",
 		recipe = {
@@ -35,17 +26,17 @@ local function register_recipes(include_end)
 			{"", "cottages:feldweg", "" },
 		},
 	})
-	                                          
+
 	minetest.register_craft({
 		output = "cottages:feldweg_t_junction 5",
 		recipe = {
 			{"", "cottages:feldweg", "" },
 			{"", "cottages:feldweg", "" },
 			{"cottages:feldweg", "cottages:feldweg", "cottages:feldweg"}
-			
+
 		},
-	})										
-	             
+	})
+
 	minetest.register_craft({
 		output = "cottages:feldweg_curve 5",
 		recipe = {
@@ -53,8 +44,8 @@ local function register_recipes(include_end)
 			{"cottages:feldweg", "", ""},
 			{"cottages:feldweg", "cottages:feldweg", "cottages:feldweg"}
 		},
-	})									                                       
-	               
+	})
+
 	if include_end then
 		minetest.register_craft({
 			output = "cottages:feldweg_end 5",
@@ -62,7 +53,7 @@ local function register_recipes(include_end)
 				{"cottages:feldweg", "", "cottages:feldweg" },
 				{"cottages:feldweg", "cottages:feldweg", "cottages:feldweg"}
 			},
-		})	
+		})
 	end
 end
 
@@ -119,7 +110,7 @@ if( cottages_feldweg_mode == "flat" ) then
 		sounds = cottages.sounds.dirt,
 		is_ground_content = false,
 	})
-	                                          
+
 	register_recipes(false)
 --
 -- cube-style nodebox version
@@ -331,7 +322,7 @@ elseif( cottages_feldweg_mode == "mesh" ) then
 		drawtype = "mesh",
 		mesh = "feldweg-crossing.obj",
 	})
-	
+
 	minetest.register_node("cottages:feldweg_t_junction", {
 		description = S("Dirt road t junction"),
 		paramtype2 = "facedir",
@@ -363,7 +354,7 @@ elseif( cottages_feldweg_mode == "mesh" ) then
 		drawtype = "mesh",
 		mesh = "feldweg-curve.obj",
 	})
-					
+
 	minetest.register_node("cottages:feldweg_end", {
 		description = S("Dirt road end"),
 		paramtype2 = "facedir",
@@ -380,8 +371,8 @@ elseif( cottages_feldweg_mode == "mesh" ) then
 		drawtype = "mesh",
 		mesh = "feldweg_end.obj",
 	})
-                                  
-	register_recipes(true)                           
+
+	register_recipes(true)
 end
 
 -- create stairs if possible
@@ -432,7 +423,7 @@ if( cottages_feldweg_mode == "nodebox" or cottages_feldweg_mode == "mesh" ) then
 		collision_box = box_slope,
 		selection_box = box_slope,
 	})
-                                     
+
 	minetest.register_node("cottages:feldweg_slope_long", {
 		description = S("Dirt road slope long"),
 		paramtype2 = "facedir",
@@ -451,16 +442,16 @@ if( cottages_feldweg_mode == "nodebox" or cottages_feldweg_mode == "mesh" ) then
 		collision_box = box_slope_long,
 		selection_box = box_slope_long,
 	})
-	        
-	                                          
+
+
 	minetest.register_craft({
 		output = "cottages:feldweg_slope 3",
 		recipe = {
 			{"cottages:feldweg", "", "" },
 			{"cottages:feldweg", "cottages:feldweg", ""}
 		},
-	})	     
-	                                          
+	})
+
 	minetest.register_craft({
 		output = "cottages:feldweg_slope_long 4",
 		recipe = {
